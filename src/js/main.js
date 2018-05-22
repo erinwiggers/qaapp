@@ -95,14 +95,12 @@ var parseResults = function (testData) {
 
         testData = data(result_id, result_os, result_browser, result_resolution);
     }
-    var testObject = JSON.stringify(testData);
+    console.log(testData);
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
 var buildDoc = function () {
     var newSpreadsheetId = null;
-    var page_slug = $("input[name=page_slug]").val(),
-        client_slug = $("input[name=client_slug]").val();
     
     var createSheet = function (title) {
         var spreadsheetBody = {
@@ -181,6 +179,10 @@ var buildDoc = function () {
             console.error('error: ' + reason.result.error.message);
         });
     };
+    
+    var page_slug = $("input[name=page_slug]").val(),
+        client_slug = $("input[name=client_slug]").val();
+        
     createSheet(client_slug + " QA Documentation");
     populateSheet(newSpreadsheetId, testObject);
 }
