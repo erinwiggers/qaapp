@@ -21,7 +21,7 @@
 <body>
 
     <div class="side-panel__wrapper">
-        <a class="side-panel__trigger" onclick="togglePanel();">
+        <a class="side-panel__trigger">
             <i class="fas fa-user-ninja"></i>
         </a>
         <div class="side-panel">
@@ -90,16 +90,8 @@
                         <h4>Documentation</h4>
                         <hr>
                     </div>
-                    <div class="padded-section padded-section--small text-center">
-                        <button id="signin-button" class="button button--small" onclick="handleSignInClick()">Login to Google</button>
-                        <button id="signout-button" class="button button--small" onclick="handleSignOutClick()">Sign out of Google</button>
-                    </div>
-
                     <div class="text-center">
                         <form id="doc-form" class="simple-form">
-                            <div class="form-field">
-                                <input type="text" id="url" name="url" style="width:400px" value="enter URL">
-                            </div>
                             <div class="form-field">
                                 <input type="text" name="client-slug" style="width:400px" value="client-slug">
                             </div>
@@ -115,7 +107,10 @@
                             <button class="button button--beta" onclick="handleData()">Get Data & Create Doc</button>
                         </form>
                     </div>
-
+                    <div class="padded-section padded-section--half text-center">
+                        <button id="signin-button" class="button button--small" onclick="handleSignInClick()">Login to Google</button>
+                        <button id="signout-button" class="button button--small" onclick="handleSignOutClick()">Sign out of Google</button>
+                    </div>
                 </div>
             </div>
         </div>

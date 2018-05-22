@@ -26,10 +26,13 @@
 
 // WEBAPP Scripts
 
+    // GLOBAL VARIABLES
     var username = "social@lyntonweb.com", //email address for your account
         password = "u0856709d93976a5", //authkey for your account
         getDataClicked = false;
 
+    
+    // SCREENSHOT TEST
     function ScreenshotTestApi(username, password) {
         this.baseUrl = "https://" + username + ":" + password + "@crossbrowsertesting.com/api/v3/screenshots";
         this.basicAuth = btoa(unescape(encodeURIComponent(username + ":" + password)));
@@ -104,6 +107,7 @@
 
     });
 
+    // GET SCREENSHOT TEST DATA
     var testJson = null;
     function ScreenshotDataApi(username, password, testID, testVersion) {
         this.baseUrl = "https://" + username + ":" + password + "@crossbrowsertesting.com/api/v3/screenshots/" + testID + "/" + testVersion;
