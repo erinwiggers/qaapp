@@ -44,7 +44,7 @@ gulp.task('styles', function() {
               'android 4']
         }))
         .pipe(rename(slug + '-style.css'))
-        .pipe(gulp.dest('content/templates/custom/system/' + slug))
+        .pipe(gulp.dest('/' + slug))
         .pipe(notify({ message: 'Styles task complete' }));
 });
 
@@ -56,7 +56,7 @@ gulp.task('scripts', function() {
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(concat(slug + '-script.js'))
-        .pipe(gulp.dest('content/templates/custom/system/' + slug))
+        .pipe(gulp.dest('/' + slug))
         .pipe(notify({ message: 'Scripts task complete' }));
 });
 
