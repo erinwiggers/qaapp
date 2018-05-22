@@ -189,7 +189,6 @@ var buildDoc = function () {
 
 // START DOCUMENTATION HANDLER
 var startDoc = function() {
-    e.preventDefault();
     getResults();
     buildDoc();
 };
