@@ -173,7 +173,6 @@ var buildDoc = function () {
                 "title": sheet_name
             }
         };
-        console.log(data);
         var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
         request.then(function (response) {
             console.log(response.result);
@@ -186,7 +185,7 @@ var buildDoc = function () {
         client_slug = $("input[name=client-slug]").val();
         
     createSheet(client_slug + " QA Documentation", page_slug);
-    populateSheet(newSpreadsheetId);
+    populateSheet(newSpreadsheetId, page_slug);
 }
 
 // START DOCUMENTATION HANDLER
