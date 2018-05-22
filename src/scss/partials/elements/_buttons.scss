@@ -34,9 +34,7 @@
         decoration: none !important;
         overflow: ellipsis;
         align: center;
-        @if map-get($options, uppercase-buttons) {
-            transform: uppercase;
-        }
+        transform: uppercase;
     }
     font: {
         size: map-get($button-font, size);

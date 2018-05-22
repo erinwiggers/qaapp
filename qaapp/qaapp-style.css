@@ -1088,11 +1088,11 @@ img.mfp-img { width: auto; max-width: 100%; height: auto; display: block; line-h
 
 .mfp-ie7 .mfp-close { top: 0; right: 0; padding-top: 0; }
 
-.button { display: inline-block; padding: 1em 2em; border-radius: 0; outline: 0; line-height: 1; cursor: pointer; vertical-align: middle; -webkit-transition: background-color .2s, -webkit-box-shadow .2s; transition: background-color .2s, -webkit-box-shadow .2s; transition: box-shadow .2s, background-color .2s; transition: box-shadow .2s, background-color .2s, -webkit-box-shadow .2s; position: relative; letter-spacing: .1em; z-index: 0; text-decoration: none !important; text-overflow: ellipsis; text-align: center; text-transform: uppercase; font-size: 16px; color: #ef6b55 !important; border-color: #ef6b55; -webkit-box-shadow: 0 0 0 #ef6b55 inset; box-shadow: 0 0 0 #ef6b55 inset; }
+.button { display: inline-block; padding: 1em 2em; border-radius: 0; outline: 0; line-height: 1; cursor: pointer; vertical-align: middle; -webkit-transition: background-color .2s, -webkit-box-shadow .2s; transition: background-color .2s, -webkit-box-shadow .2s; transition: box-shadow .2s, background-color .2s; transition: box-shadow .2s, background-color .2s, -webkit-box-shadow .2s; position: relative; letter-spacing: .1em; z-index: 0; text-decoration: none !important; text-overflow: ellipsis; text-align: center; text-transform: uppercase; font-size: 16px; color: white !important; border-color: #dd6379; -webkit-box-shadow: 0 0 0 #dd6379 inset; box-shadow: 0 0 0 #dd6379 inset; }
 
-.button:hover, .button:active, .button:focus { -webkit-box-shadow: 0 2px 0 #ef6b55 inset; box-shadow: 0 2px 0 #ef6b55 inset; }
+.button:hover, .button:active, .button:focus { -webkit-box-shadow: 0 2px 0 #dd6379 inset; box-shadow: 0 2px 0 #dd6379 inset; }
 
-.button:active { background-color: rgba(239, 107, 85, 0.1); }
+.button:active { background-color: rgba(221, 99, 121, 0.1); }
 
 .legacy-hybrid-theme .button { color: white !important; }
 
@@ -1110,7 +1110,7 @@ img.mfp-img { width: auto; max-width: 100%; height: auto; display: block; line-h
 
 .button.cta_button { -webkit-box-sizing: inherit !important; box-sizing: inherit !important; }
 
-.button--alpha { color: #ef6b55 !important; border-color: #ef6b55; -webkit-box-shadow: 0 0 0 #ef6b55 inset; box-shadow: 0 0 0 #ef6b55 inset; }
+.button--alpha { color: white !important; border-color: #ef6b55; -webkit-box-shadow: 0 0 0 #ef6b55 inset; box-shadow: 0 0 0 #ef6b55 inset; }
 
 .button--alpha:hover, .button--alpha:active, .button--alpha:focus { -webkit-box-shadow: 0 2px 0 #ef6b55 inset; box-shadow: 0 2px 0 #ef6b55 inset; }
 
@@ -1120,7 +1120,7 @@ img.mfp-img { width: auto; max-width: 100%; height: auto; display: block; line-h
 
 .legacy-hybrid-theme .button--alpha:hover, .legacy-hybrid-theme .button--alpha:active, .legacy-hybrid-theme .button--alpha:focus { -webkit-box-shadow: none; box-shadow: none; background-color: #127b54; }
 
-.button--beta { color: #33a5e7 !important; border-color: #33a5e7; -webkit-box-shadow: 0 0 0 #33a5e7 inset; box-shadow: 0 0 0 #33a5e7 inset; }
+.button--beta { color: white !important; border-color: #33a5e7; -webkit-box-shadow: 0 0 0 #33a5e7 inset; box-shadow: 0 0 0 #33a5e7 inset; }
 
 .button--beta:hover, .button--beta:active, .button--beta:focus { -webkit-box-shadow: 0 2px 0 #33a5e7 inset; box-shadow: 0 2px 0 #33a5e7 inset; }
 
@@ -1130,11 +1130,11 @@ img.mfp-img { width: auto; max-width: 100%; height: auto; display: block; line-h
 
 .legacy-hybrid-theme .button--beta:hover, .legacy-hybrid-theme .button--beta:active, .legacy-hybrid-theme .button--beta:focus { -webkit-box-shadow: none; box-shadow: none; background-color: #127b54; }
 
-.button--light { color: white !important; border-color: white; -webkit-box-shadow: 0 0 0 white inset; box-shadow: 0 0 0 white inset; }
+.button--light { color: white !important; border-color: #dd6379; -webkit-box-shadow: 0 0 0 #dd6379 inset; box-shadow: 0 0 0 #dd6379 inset; }
 
-.button--light:hover, .button--light:active, .button--light:focus { -webkit-box-shadow: 0 2px 0 white inset; box-shadow: 0 2px 0 white inset; }
+.button--light:hover, .button--light:active, .button--light:focus { -webkit-box-shadow: 0 2px 0 #dd6379 inset; box-shadow: 0 2px 0 #dd6379 inset; }
 
-.button--light:active { background-color: rgba(255, 255, 255, 0.1); }
+.button--light:active { background-color: rgba(221, 99, 121, 0.1); }
 
 .legacy-hybrid-theme .button--light { color: white !important; }
 
@@ -1142,7 +1142,7 @@ img.mfp-img { width: auto; max-width: 100%; height: auto; display: block; line-h
 
 .hs_submit { text-align: center; }
 
-.hs_submit .actions { display: inline-block; padding: 1em 2em; border-radius: 0; outline: 0; line-height: 1; cursor: pointer; vertical-align: middle; -webkit-transition: background-color .2s, -webkit-box-shadow .2s; transition: background-color .2s, -webkit-box-shadow .2s; transition: box-shadow .2s, background-color .2s; transition: box-shadow .2s, background-color .2s, -webkit-box-shadow .2s; position: relative; letter-spacing: .1em; z-index: 0; text-decoration: none !important; text-overflow: ellipsis; text-align: center; text-transform: uppercase; font-size: 16px; color: #ef6b55 !important; border-color: #ef6b55; -webkit-box-shadow: 0 0 0 #ef6b55 inset; box-shadow: 0 0 0 #ef6b55 inset; }
+.hs_submit .actions { display: inline-block; padding: 1em 2em; border-radius: 0; outline: 0; line-height: 1; cursor: pointer; vertical-align: middle; -webkit-transition: background-color .2s, -webkit-box-shadow .2s; transition: background-color .2s, -webkit-box-shadow .2s; transition: box-shadow .2s, background-color .2s; transition: box-shadow .2s, background-color .2s, -webkit-box-shadow .2s; position: relative; letter-spacing: .1em; z-index: 0; text-decoration: none !important; text-overflow: ellipsis; text-align: center; text-transform: uppercase; font-size: 16px; color: white !important; border-color: #ef6b55; -webkit-box-shadow: 0 0 0 #ef6b55 inset; box-shadow: 0 0 0 #ef6b55 inset; }
 
 .hs_submit .actions:hover, .hs_submit .actions:active, .hs_submit .actions:focus { -webkit-box-shadow: 0 2px 0 #ef6b55 inset; box-shadow: 0 2px 0 #ef6b55 inset; }
 

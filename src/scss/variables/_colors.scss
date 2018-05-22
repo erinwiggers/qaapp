@@ -85,20 +85,20 @@ $colored-sections: (
 $base-colors: map-get($colored-sections, base);
 $button-colors: (
     base: (
-        text:               map-get($palette, alpha),
-        border:             map-get($palette, alpha)
+        text:               white,
+        border:             map-get($palette, gamma)
     ),
     alpha: (
-        text:               map-get($palette, alpha),
+        text:               white,
         border:             map-get($palette, alpha)
     ),
     beta: (
-        text:               map-get($palette, beta),
+        text:               white,
         border:             map-get($palette, beta)
     ),
     light: (
         text:               white,
-        border:             white
+        border:             map-get($palette, gamma)
     )
 );
 $overlays: (
