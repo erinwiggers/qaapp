@@ -95,7 +95,7 @@ var parseResults = function (testData) {
 
         resultsArray += {result_id, result_os, result_browser, result_resolution };
     }
-    console.log(JSON.parse(resultsArray));
+    console.log(JSON.parse(rJSON.stringify(resultsArray));
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
