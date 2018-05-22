@@ -42,65 +42,6 @@
         size: map-get($button-font, size);
         family: map-get($button-font, family);
     }
-    &:before,
-    &:after {
-        content: '';
-        border-color: inherit;
-        position: absolute;
-        transition: .2s;
-        margin: auto;
-        bottom: 0;
-        z-index: map-get($layers, base);
-    }
-    &:after {
-        left: $sides;
-        right: $sides;
-        border-bottom: {
-            width: 2px;
-            style: solid;
-        }
-        transition-delay: .2s;
-    }
-    &:before {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 0;
-        border: {
-            @each $side in left, right {
-                #{$side}-width: 2px;
-                #{$side}-style: solid;
-            }
-        }
-    }
-    @include bp(tablet, true) {
-        padding: 1em;
-        &:after {
-            left: 1em;
-            right: 1em;
-        }
-    }
-    @include hover-state($active: true) {
-        transition-delay: .4s;
-        &:after {
-            left: 0;
-            right: 0;
-        }
-        &:before {
-            height: 100%;
-            transition-delay: .2s;
-        }
-    }
-    .legacy-hybrid-theme & {
-        background-color: #19a773;
-        font-family: map-get($legacy-heading-font, family);
-        border: none;
-        border-radius: 5px;
-        &:after,
-        &:before {
-            display: none;
-        }
-    }
 }
 
 .button {
@@ -163,34 +104,11 @@
   BUTTONS
 ========================================*/
 .btn {
-  width: 50%;
-  margin: 0;
-  padding: 2% 3%;
-  display: inline-block;
-  /* For normal, healthy browsers */
-  /*white-space: nowrap;*/
-  *display: inline;
-  zoom: 1;
-  text-align: center;
-  float: left;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease; }
-  * html .btn {
-    /* for IE6 */
-    display: inline; }
-  * + html .btn {
-    /* for IE7 */
-    display: inline; }
+  @include button;
+}
+
 button {
-    padding: .5em 1em;
-    margin: 1em 0;
-    background-color: #ef6b55;
-    color: white;
-    text-transform: uppercase;
-    font-weight: 600;
+    @include button;
 }
 .button--small {
   font-size: .7em;
