@@ -85,15 +85,15 @@ var parseResults = function (testData) {
 
     var resultsArray = [{}];
     for (i = 0, results.length; i < results.length; i++) {
-        var testObject = {
-            result_id = results[i].result_id,
-            result_os = results[i].os['name'],
-            result_browser = results[i].browser['name'],
-            result_resolution = results[i].resolution['name'],
-            result_tags = results[i].tags,
-            show_result = results[i].show_result_web_url,
-            launch_live = results[i].launch_live_test_url
-        }
+        testObject = [
+            { result_id = results[i].result_id },
+            { result_os = results[i].os['name'] },
+            { result_browser = results[i].browser['name'] },
+            { result_resolution = results[i].resolution['name'] },
+            { result_tags = results[i].tags },
+            { show_result = results[i].show_result_web_url },
+            { launch_live = results[i].launch_live_test_url }
+        ]
         resultsArray += testObject[i].value;
     }
     console.log(resultsArray);
