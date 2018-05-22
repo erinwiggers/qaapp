@@ -26,227 +26,88 @@
 
 // WEBAPP Scripts
 
-    // GLOBAL VARIABLES
-    var username = "social@lyntonweb.com", //email address for your account
-        password = "u0856709d93976a5", //authkey for your account
-        getDataClicked = false;
+// GLOBAL VARIABLES
+var username = "social@lyntonweb.com", //email address for your account
+    password = "u0856709d93976a5", //authkey for your account
+    getDataClicked = false;
 
     
-    // SCREENSHOT TEST
-    function ScreenshotTestApi(username, password) {
-        this.baseUrl = "https://" + username + ":" + password + "@crossbrowsertesting.com/api/v3/screenshots";
-        this.basicAuth = btoa(unescape(encodeURIComponent(username + ":" + password)));
-        this.currentTest = null;
-        this.allBrowsers = [];
-        this.callApi = function (url, method, params, callback) {
-            var self = this;
-            $.ajax({
-                type: method,
-                url: url,
-                data: params,
-                dataType: "json",
-                async: false,
-                beforeSend: function (jqXHR) {
-                    jqXHR.setRequestHeader('Authorization', "Basic " + self.basicAuth);
-                },
-                success: function (data) {
-                    callback(data);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                    resultsUi.append("<div>" + textStatus + "</div>");
-                    throw "Failed: " + textStatus
-                }
-            });
-        }
-        this.startNewTest = function (params, callback) {
-            var self = this;
-            self.callApi(this.baseUrl, "POST", params, function (data) {
-                self.log('new test started successfully', data)
-                self.currentTest = data;
-                resultsUi.append("<div>startNewTest completed</div>");
-                callback();
-            });
-        }
-        this.getTestId = function () {
-            return this.currentTest.screenshot_test_id;
-        }
-        this.getTestVersion = function () {
-            return this.currentTest.versions.version_id;
-        }
-        this.log = function (text) {
-            if (window.console) console.log(text);
-        }
+// GET RAW SCREENSHOT TEST RESULTS
+var getResults = function () {
+    var ssBaseUrl = "https://crossbrowsertesting.com/api/v3/screenshots/";
+    var username = "social@lyntonweb.com";
+    var password = "u0856709d93976a5";
+    var basicAuth = btoa(unescape(encodeURIComponent(username + ":" + password)));
+    var testData = null;
+    var test_id = $("input[name=test_id]").val(),
+        version_id = $("input[name=version_id]").val();
+
+    var xhr = new XMLHttpRequest();
+    if (version_id != null) {
+        xhr.open("GET", "https://crossbrowsertesting.com/api/v3/screenshots/" + test_id + "/" + version_id, true);
+    } else {
+        xhr.open("GET", "https://crossbrowsertesting.com/api/v3/screenshots/" + test_id, true);
     }
+    xhr.setRequestHeader('Authorization', "Basic " + basicAuth);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 1) {
+            console.log("connected to server");
+        } else if (xhr.readyState == 2) {
+            console.log("reqest sent");
+        } else if (xhr.readyState == 3) {
+            console.log("processing request");
+        } else if (xhr.readyState == 4) {
+            console.log("complete");
+            var testData = xhr.responseText;
+            parseResults(testData);
+        } else {
+            console.log("Something went wrong");
+        }
+    };
+};
 
-    function runNewTest() {
-        var screenshot = new ScreenshotTestApi(username, password),
-            resultsQuery = "?type=fullpage&size=small",
-            params = {
-                url: $("input[name=url]").val(),
-                browser_list_name: "lw_custom",
-                api_timeout: $("input[name=api_timeout]").val()
-            }
-        resultsUi.html("<div>Running Screenshot Test on " + params.url + "</div>");
-        $("#setup").hide();
-        screenshot.startNewTest(params, function () {
-            resultsUi.append("<div>Screenshot Test id is <span id='testId'>" + screenshot.getTestId() + "</div>");
-            resultsUi.append("<div><a class='button button--delta' href='https://app.crossbrowsertesting.com/screenshots/" + screenshot.getTestId() + resultsQuery + "' target='_blank'>View Screenshot Test on CrossBrowserTesting.com</a></div>");
-            resultsUi.append("<br><br><button class=button' type='button' onclick='location.href=location.href'>Start Over</button>");
-            $("input[name=testId]").val(screenshot.getTestId());
-            $("input[name=testVersion]").val(screenshot.getTestVersion());
-        });
+// PARSE SCREENSHOT TEST RESULTS
+var parseResults = function (testData) {
+    var test = JSON.parse(testData);
+    var version_count = test.version_count,
+        id = test.screenshot_test_id,
+        date = test.created_date,
+        url = test.url,
+        result_count = test.versions[0].result_count.successful,
+        result_total = test.versions[0].result_count.total,
+        version_id = test.versions[0].version_id,
+        show_url = test.versions[0].show_results_web_url,
+        tags = test.versions[0].tags;
+
+    var results = $.makeArray(test.versions[0].results);
+    var output = "";
+
+    var result_ids = [];
+    for (i = 0, results.length; i < results.length; i++) {
+        var result_id = results[i].result_id,
+            result_os = results[i].os['name'],
+            result_browser = results[i].browser['name'],
+            result_resolution = results[i].resolution['name'],
+            result_tags = results[i].tags,
+            show_result = results[i].show_result_web_url,
+            launch_live = results[i].launch_live_test_url
+
+        testData = data(result_id, result_os, result_browser, result_resolution);
     }
-    var resultsUi = null;
-    $(document).ready(function () {
-        var api = new ScreenshotTestApi(username, password);
+    var testObject = JSON.stringify(testData);
+};
 
-        resultsUi = $("#results");
-
-    });
-
-    // GET SCREENSHOT TEST DATA
-    var testJson = null;
-    function ScreenshotDataApi(username, password, testID, testVersion) {
-        this.baseUrl = "https://" + username + ":" + password + "@crossbrowsertesting.com/api/v3/screenshots/" + testID + "/" + testVersion;
-        this.basicAuth = btoa(unescape(encodeURIComponent(username + ":" + password)));
-        this.callApi = function (url, method, params, callback) {
-            var self = this;
-            $.ajax({
-                type: method,
-                url: url,
-                data: params,
-                dataType: "json",
-                async: false,
-                beforeSend: function (jqXHR) {
-                    jqXHR.setRequestHeader('Authorization', "Basic " + self.basicAuth);
-                },
-                success: function (data) {
-                    callback(data);
-                    console.log(data);
-                    testJson = data;
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                    resultsUi.append("<div>" + textStatus + "</div>");
-                    throw "Failed: " + textStatus
-                }
-            });
-        }
-        this.getTestData = function (params, callback) {
-            var self = this;
-            self.callApi(this.baseUrl, "GET", params, function (data) {
-                self.log('test data retrieved', data)
-                self.currentTest = testJson;
-                resultsUi.append("<div>getTestData completed</div>");
-                console.log("test");
-                callback();
-            });
-        }
-        this.getCreatedDate = function () {
-            return this.currentTest.created_date;
-        }
-        this.getTestVersion = function () {
-            return this.currentTest.versions.version_id;
-        }
-        this.getVersionCount = function () {
-            return this.currentTest.version_count;
-        }
-        this.getVersionData = function () {
-            return this.currentTest.versions;
-        }
-        this.log = function (text) {
-            if (window.console) console.log(text);
-        }
-    }
-    var client_slug = null,
-        page_slug = null,
-        testId = null;
-    /* var getPassRate = function(screenshot) {
-        var tags = screenshot.results.tags,
-            total = "",
-            passes = [];
-        var passes = function() {
-            if tags.indexOf("pass") {
-                return screenshot.results.result_id;
-            }
-        }
-        return count(passes)/total;
-    } */
-    function handleData() {
-        var client_slug = $("input[name=client-slug]").val(),
-            page_slug = $("input[name=page-slug]").val(),
-            testId = $("input[name=testId]").val(),
-            testVersion = $("input[name=testVersion]").val();
-        var screenshot = new ScreenshotDataApi(username, password, testId, testVersion),
-            params = "";
-        resultsUi.html("<div>Getting Screenshot Test data for " + client_slug + " / " + page_slug + " / " + testId + "</div>");
-        screenshot.getTestData(params, function () {
-            var sendData = {
-                "client_slug": client_slug,
-                "page_slug": page_slug,
-                "testId": testId,
-                "created_date": screenshot.getCreatedDate(),
-                "version_count": screenshot.getVersionCount()/*,
-            "passRate": passRate(screenshot) */
-            };
-            console.log(testJson);
-            makeSheetApiCall(sendData);
-        });
-        getDataClicked = true;
-    }
-
-    var makeSheetApiCall = function (sendData) {
-        var newSpreadsheetId = null,
-            page = sendData.page_slug,
-            id = sendData.testId,
-            url = JSON.parse("show_result_web_url"),
-            count = sendData.version_count
-        var params = {
-            valueInputOption: "USER_ENTERED"
-        }
+// CREATE SPREADSHEET AND POPULATE WITH TEST DATA
+var buildDoc = function () {
+    var newSpreadsheetId = null;
+    var page_slug = $("input[name=page_slug]").val(),
+        client_slug = $("input[name=client_slug]").val();
+    
+    var createSheet = function (title) {
         var spreadsheetBody = {
             properties: {
-                "title": sendData.client_slug + ": QA Documentation"
-            },
-            sheets: {
-                "properties": {
-                    "title": sendData.page_slug
-                },
-                "data": {
-                    "rowData": [
-                        {
-                            "values": [
-                                {
-                                    "userEnteredValue": {
-                                        "stringValue": page
-                                    }
-                                },
-                                {
-                                    "hyperlink": url,
-                                    "userEnteredFormat": {
-                                        "hyperlinkDisplayType": "LINKED"
-                                    },
-                                    "formattedValue": id
-                                },
-                                {
-                                    "userEnteredValue": {
-                                        "stringValue": date
-                                    }
-                                },
-                                {
-                                    "userEnteredValue": {
-                                        "numberValue": count
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
+                "title": title
             }
         };
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
@@ -255,41 +116,113 @@
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
+    };
 
-    }
-
-    function initClient() {
-        var API_KEY = 'AIzaSyA09kGmIzbCL37IQt5fGIP1NFwESZH99SE';  // TODO: Update placeholder with desired API key.
-
-        var CLIENT_ID = '407152186767-6qr0jchv3iop1vc14agbmm5t1qa3fgtc.apps.googleusercontent.com';  // TODO: Update placeholder with desired client ID.
-
-        var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
-
-        gapi.client.init({
-            'apiKey': API_KEY,
-            'clientId': CLIENT_ID,
-            'scope': SCOPE,
-            'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-        }).then(function () {
-            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
-            updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    var populateSheet = function (spreadsheetId, data) {
+        var params = {
+            spreadsheetId: spreadsheetId
+        };
+        var batchUpdateValuesRequestBody = {
+            valueInputOption: 'USER_ENTERED',
+            data: [
+                {
+                    "majorDimension": "COLUMNS",
+                    "range": "A1:A6",
+                    "values": [
+                        [
+                            "page_slug"
+                        ],
+                        [
+                            "screenshot_test_id"
+                        ],
+                        [
+                            "created_date"
+                        ],
+                        [
+                            "version_count"
+                        ],
+                        [
+                            "version_id"
+                        ],
+                        [
+                            "pass_percentage"
+                        ]
+                    ]
+                },
+                {
+                    "majorDimension": "ROWS",
+                    "range": "A9:E",
+                    "values": [
+                        [
+                            "Result"
+                        ],
+                        [
+                            "OS"
+                        ],
+                        [
+                            "Browser"
+                        ],
+                        [
+                            "Resolution"
+                        ],
+                        [
+                            "Tags"
+                        ]
+                    ]
+                }
+            ],
+            properties: [],
+        };
+        console.log(data);
+        var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
+        request.then(function (response) {
+            console.log(response.result);
+        }, function (reason) {
+            console.error('error: ' + reason.result.error.message);
         });
-    }
+    };
+    createSheet(client_slug + " QA Documentation");
+    populateSheet(newSpreadsheetId, testObject);
+}
 
-    function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-    }
+// START DOCUMENTATION HANDLER
+var startDoc = function() {
+    getResults();
+    buildDoc();
+};
 
-    function updateSignInStatus(isSignedIn) {
-        if (isSignedIn && getDataClicked) {
-            handleData();
-        }
-    }
 
-    function handleSignInClick(event) {
-        gapi.auth2.getAuthInstance().signIn();
-    }
+// GOOGLE API HANDLER
+function initClient() {
+    var API_KEY = 'AIzaSyA09kGmIzbCL37IQt5fGIP1NFwESZH99SE';
+    var CLIENT_ID = '407152186767-6qr0jchv3iop1vc14agbmm5t1qa3fgtc.apps.googleusercontent.com';
+    var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
-    function handleSignOutClick(event) {
-        gapi.auth2.getAuthInstance().signOut();
+    gapi.client.init({
+        'apiKey': API_KEY,
+        'clientId': CLIENT_ID,
+        'scope': SCOPE,
+        'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+    }).then(function () {
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+        updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    });
+}
+
+function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+}
+
+function updateSignInStatus(isSignedIn) {
+    if (isSignedIn && getDataClicked) {
+        handleData();
     }
+}
+
+function handleSignInClick(event) {
+    gapi.auth2.getAuthInstance().signIn();
+}
+
+function handleSignOutClick(event) {
+    gapi.auth2.getAuthInstance().signOut();
+}
