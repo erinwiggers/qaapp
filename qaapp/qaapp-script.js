@@ -83,25 +83,20 @@ var parseResults = function (testData) {
     var results = $.makeArray(test.versions[0].results);
     var output = "";
 
-    var resultsArray = [];
+    var resultsArray = [{}];
     for (i = 0, results.length; i < results.length; i++) {
-        var result_id = results[i].result_id,
+        var testObject = {
+            result_id = results[i].result_id,
             result_os = results[i].os['name'],
             result_browser = results[i].browser['name'],
             result_resolution = results[i].resolution['name'],
             result_tags = results[i].tags,
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url
-
-        function displayResults() {
-            const resultArray = { "id": result_id, "os": result_os, "broswer": result_browser, "resolution": result_resolution };
-            return Object.entries(resultsArray);
         }
+        resultsArray += testObject[i].value;
     }
-    function addResults() {
-        const allResults = displayResults();
-    }
-    console.log(Object.entries(allResults()));
+    console.log(resultsArray);
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
