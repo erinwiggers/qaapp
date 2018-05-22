@@ -180,8 +180,8 @@ var buildDoc = function () {
         });
     };
     
-    var page_slug = $("input[name=page_slug]").val(),
-        client_slug = $("input[name=client_slug]").val();
+    var page_slug = $("input[name=page-slug]").val(),
+        client_slug = $("input[name=client-slug]").val();
         
     createSheet(client_slug + " QA Documentation");
     populateSheet(newSpreadsheetId, testObject);
