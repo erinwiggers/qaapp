@@ -1,7 +1,5 @@
 $(function () {
-    "use strict";
-    $(window).trigger("beforemainjs");
-    
+    "use strict";    
     
 // UI Scripts
     // TABS
@@ -295,3 +293,4 @@ $(function () {
         gapi.auth2.getAuthInstance().signOut();
     }
 
+});
