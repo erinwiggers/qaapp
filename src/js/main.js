@@ -93,7 +93,7 @@ var parseResults = function (testData) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url
 
-        resultsArray += { "id": result_id, "os": result_os, "broswer": result_browser, "resolution": result_resolution };
+        const resultsArray = { "id": result_id, "os": result_os, "broswer": result_browser, "resolution": result_resolution };
     }
     console.log(resultsArray);
 };
