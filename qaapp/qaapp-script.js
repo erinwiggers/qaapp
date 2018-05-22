@@ -93,12 +93,12 @@ var parseResults = function (testData) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url
 
-        displayEntries() {
+        function displayResults() {
             const resultsArray = { "id": result_id, "os": result_os, "broswer": result_browser, "resolution": result_resolution };
             return Object.entries(resultsArray);
         }
     }
-    console.log(displayEntries());
+    console.log(displayResults());
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
