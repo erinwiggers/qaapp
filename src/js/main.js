@@ -116,7 +116,7 @@ var buildDoc = function () {
         });
     };
 
-    var populateSheet = function (spreadsheetId, data) {
+    var populateSheet = function (spreadsheetId, sheet_name) {
         var params = {
             spreadsheetId: spreadsheetId
         };
@@ -169,7 +169,9 @@ var buildDoc = function () {
                     ]
                 }
             ],
-            properties: [],
+            properties: {
+                "title": sheet_name
+            }
         };
         console.log(data);
         var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
@@ -183,7 +185,7 @@ var buildDoc = function () {
     var page_slug = $("input[name=page-slug]").val(),
         client_slug = $("input[name=client-slug]").val();
         
-    createSheet(client_slug + " QA Documentation");
+    createSheet(client_slug + " QA Documentation", page_slug);
     populateSheet(newSpreadsheetId, testObject);
 }
 
