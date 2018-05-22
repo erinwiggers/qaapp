@@ -93,7 +93,7 @@ var parseResults = function (testData) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url
 
-        testData = data(result_id, result_os, result_browser, result_resolution);
+        testData = JSON.stringify(result_id, result_os, result_browser, result_resolution);
     }
     console.log(testData);
 };
@@ -107,7 +107,7 @@ var buildDoc = function () {
             properties: {
                 "title": title
             },
-            sheet: {
+            sheets: {
                 properties: {
                     "title": sheet_name
                 }
