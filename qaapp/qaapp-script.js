@@ -97,7 +97,10 @@ var parseResults = function (testData) {
             const resultArray = { "id": result_id, "os": result_os, "broswer": result_browser, "resolution": result_resolution };
             return Object.entries(resultsArray);
         }
-        console.log(displayResults());
+        function addResults() {
+            const allResults = displayResults();
+            console.log(Object.entries(allResults));
+        }
     }
 };
 
