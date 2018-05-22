@@ -1,0 +1,22 @@
+a {
+    @include link-color;
+    transition: .2s;
+    text-decoration: none;
+}
+
+@mixin more-link {
+    text-transform: uppercase;
+    font-family: map-get($heading-font, family);
+    &:after {
+        @include fa($fa-angle-right);
+        margin-left: .5em;
+    }
+}
+
+.more-link { @include more-link; }
+.video-link {
+    &:before {
+        @include fa($fa-play-circle-o);
+        margin-right: .5em;
+    }
+}

@@ -1,0 +1,35 @@
+.bordered-section {
+    @include border-color;
+    border: {
+        style: solid;
+        width: 0;
+        top-width: 1px;
+        bottom-width: 1px;
+    }
+    &--top {
+        border-bottom-width: 0;
+    }
+    &--bottom {
+        border-top-width: 0;
+    }
+    &--left,
+    &--right {
+        border: {
+            top-width: 0;
+            bottom-width: 0;
+        }
+    }
+    &--left {
+        @include bp(tablet) {
+            border-left-width: 1px;
+        }
+    }
+    &--right {
+        @include bp(tablet) {
+            border-right-width: 1px;
+        }
+    }
+    &--all {
+        border-width: 1px;
+    }
+}

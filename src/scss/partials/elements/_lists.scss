@@ -1,0 +1,42 @@
+@mixin fancy-list($bullet: $fa-angle-right) {
+    list-style: none;
+    padding-left: 0;
+    > li {
+        position: relative;
+        padding-left: 1.5em;
+        &:before {
+            @include accent-color(color);
+            @include fa;
+            content: $bullet;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        + li {
+            margin-top: .5em;
+        }
+    }
+}
+
+.fancy-list {
+    @include fancy-list;
+}
+.checklist {
+    @include fancy-list($fa-check);
+    .legacy-hybrid-theme & {
+        li {
+            padding-left: 3.5em;
+            min-height: 3em;
+            &:before {
+                font-size: .95em;
+                border-radius: 1000px;
+                text-align: center;
+                width: 2em;
+                height: 2em;
+                line-height: 2;
+                color: white;
+                background-color: #207bcd;
+            }
+        }
+    }
+}

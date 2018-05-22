@@ -1,0 +1,50 @@
+.padded-section {
+    $pad: map-get($options, row-spacing) * 2;
+    $sides: (top, right, bottom, left, sides);
+    $sizes: (
+        small:     1em,
+        half:      $pad / 2,
+        large:     $pad * 1.5,
+        double:    $pad * 2,
+        huge:      $pad * 3,
+        flush:     0
+    );
+    @function sides-to-use($side) {
+        @return if($side == sides, (left, right), $side);
+    }
+    @include module-padding($pad);
+    &--full {
+        @include module-padding($pad, $sides: all);
+    }
+    @each $side in $sides {
+        &.padded-section--#{$side} {
+            $side: sides-to-use($side);
+            padding: 0;
+            @include module-padding($pad, $sides: ($side));
+        }
+    }
+    @each $slug, $size in $sizes {
+        &--#{$slug} {
+            @include module-padding($size);
+            &.padded-section--full {
+                @include module-padding($size, $sides: all);
+            }
+            @each $side in $sides {
+                @if ($size > 0) {
+                    &.padded-section--#{$side} {
+                        $side: sides-to-use($side);
+                        @include module-padding($size, $sides: ($side));
+                    }
+                }
+            }
+        }
+    }
+    @each $slug, $size in $sizes {
+        @each $side in $sides {
+            &.padded-section--#{$slug}-#{$side} {
+                $side: sides-to-use($side);
+                @include module-padding($size, $sides: ($side));
+            }
+        }
+    }
+}

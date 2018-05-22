@@ -1,0 +1,110 @@
+$palette: (
+    alpha:              #ef6b55,
+    beta:               #33a5e7,
+    gamma:              #dd6379,
+    delta:              #9c407e,
+    neutral-lightest:   #E9E9E9,
+    neutral-light:      #d2d5d6,
+    neutral-medium:     #454545,
+    neutral-dark:       #363636
+);
+$colored-sections: (
+    light: (
+        background:     map-get($palette, neutral-lightest)
+    ),
+    medium: (
+        background:     map-get($palette, neutral-medium),
+        text:           white,
+        headings:       white,
+        borders:        white,
+        links:          white
+    ),
+    dark: (
+        extend:         medium,
+        background:     map-get($palette, neutral-dark),
+        accent-harmony: map-get($palette, neutral-dark),
+        hs-button:      light
+    ),
+    alpha: (
+        extend:         dark,
+        background:     map-get($palette, alpha),
+        accent-harmony: map-get($palette, gamma)
+    ),
+    beta: (
+        extend:         dark,
+        background:     map-get($palette, beta),
+        accent:         white,
+        accent-harmony: map-get($palette, delta)
+    ),
+    beta-dark: (
+        extend:         beta,
+        background:     darken(map-get($palette, beta), 20%)
+    ),
+    beta-darkest: (
+        extend:         beta,
+        background:     darken(map-get($palette, beta), 40%),
+        accent:         map-get($palette, beta)
+    ),
+    gamma: (
+        extend:         dark,
+        background:     map-get($palette, gamma),
+        accent-harmony: white
+    ),
+    delta: (
+        extend:         dark,
+        background:     map-get($palette, delta),
+        accent-harmony: white
+    ),
+    blue-red: (
+        extend:         dark,
+        background:     (map-get($palette, beta), map-get($palette, gamma)),
+        accent-harmony: white
+    ),
+    red-blue: (
+        extend:         blue-red,
+        background:     (map-get($palette, gamma), map-get($palette, beta)),
+        accent-harmony: white
+    ),
+    blue-purple: (
+        extend:         blue-red,
+        background:     (map-get($palette, beta), map-get($palette, delta)),
+        accent-harmony: white
+    ),
+    base: (
+        background:     white,
+        text:           map-get($palette, neutral-medium),
+        headings:       map-get($palette, neutral-dark),
+        links:          map-get($palette, beta),
+        links-hover:    map-get($palette, delta),
+        borders:        map-get($palette, neutral-lightest),
+        accent:         map-get($palette, beta),
+        accent-harmony: white,
+        hs-button:      alpha
+    )
+);
+$base-colors: map-get($colored-sections, base);
+$button-colors: (
+    base: (
+        text:               map-get($palette, alpha),
+        border:             map-get($palette, alpha)
+    ),
+    alpha: (
+        text:               map-get($palette, alpha),
+        border:             map-get($palette, alpha)
+    ),
+    beta: (
+        text:               map-get($palette, beta),
+        border:             map-get($palette, beta)
+    ),
+    light: (
+        text:               white,
+        border:             white
+    )
+);
+$overlays: (
+    orange: (#efab4b, #bb4343, .55),
+    blue: (#00ffea, #006cea, .35),
+    green: (#aec31f, #7d910f, .55),
+    purple: (#4a5174, #4a5174, .5),
+    red-blue: (#ff5b8b, #021e7c, .55)
+);

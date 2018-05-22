@@ -1,0 +1,30 @@
+$containers: (
+    base: 1290px,
+    large: 1630px,
+    full: 1920px,
+    small: 980px,
+    smaller: 770px,
+    smallest: 700px
+);
+
+$portal-id: 74005;
+
+$breakpoints: (
+    mobile: 420px,
+    tablet: 768px,
+    desktop: 1140px,
+    large: 1280px,
+    extra-large: 1680px,
+    full: 1920px,
+    before-container: map-get($containers, base) + 100,
+    container: map-get($containers, base),
+    team-4: 1500px,
+    team-5: 1850px,
+    menu-break: 1050px
+);
+
+$header-height:         70px;
+$header-height-mobile:  64px;
+$logo-height:           47px;
+
+$global-shadow: 0 3px 20px rgba(black, .12);

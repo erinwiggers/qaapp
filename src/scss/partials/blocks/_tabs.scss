@@ -1,0 +1,116 @@
+
+/*=================================================
+  TABS
+==================================================*/
+.gradient {
+  position: absolute;
+  width: 100%;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+50,000000+51,000000+100&0.22+0,0+100 */
+  background: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.11) 50%, rgba(0, 0, 0, 0.11) 51%, transparent 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.11) 50%, rgba(0, 0, 0, 0.11) 51%, transparent 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.11) 50%, rgba(0, 0, 0, 0.11) 51%, transparent 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38ffffff', endColorstr='#00000000',GradientType=1 );
+  /* IE6-9 fallback on horizontal gradient */ }
+
+/*=======================================
+  TAB BODY
+========================================*/
+.tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 726px;
+  margin: 145px auto;
+  z-index: 99999;
+  -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  transform: translateY(0%); }
+  @media (max-width: 800px) {
+    .tabs {
+      position: static;
+      width: 90%;
+      margin: 4% auto; } }
+
+/*=======================================
+  TAB NAVIGATION
+========================================*/
+.tabs-nav ul {
+  margin: 0;
+  padding: 0; }
+.tabs-nav li {
+  width: 242px;
+  padding: 8% 3% 3% 3%;
+  display: inline-block;
+  /* For normal, healthy browsers */
+  /*white-space: nowrap;*/
+  *display: inline;
+  zoom: 1;
+  font-size: 14px;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: #E0E0E0;
+  cursor: pointer;
+  margin-left: -5px;
+  margin-bottom: 0;
+  border-right: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
+  background-color: #F7F7F7;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
+  * html .tabs-nav li {
+    /* for IE6 */
+    display: inline; }
+  * + html .tabs-nav li {
+    /* for IE7 */
+    display: inline; }
+  .tabs-nav li:hover {
+    color: #edbdc8;
+    background-color: #fff; }
+.tabs-nav li i {
+    font-size: 3em; }
+  .tabs-nav li:first-child {
+    margin-left: 0;
+    border-left: 0; }
+  .tabs-nav li:last-child {
+    border-right: 0;
+    border-left: 0; }
+@media (max-width: 800px) {
+  .tabs-nav li {
+    width: 33.34%;
+    padding: 0; } }
+
+/*=======================================
+  TAB CONTENT
+========================================*/
+.tab-container {
+  width: 100%;
+  padding: 6%;
+  background-color: #fff; }
+
+/*=======================================
+  TAGLINE
+========================================*/
+.tagline {
+  position: relative;
+  margin-bottom: 6%; }
+  .tagline:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    height: 5px;
+    width: 105px;
+    background-color: #edbdc8; }
+  @media (max-width: 700px) {
+    .tagline {
+      margin-bottom: 8%; } }
+  @media (max-width: 500px) {
+    .tagline {
+      margin-bottom: 12%; } }

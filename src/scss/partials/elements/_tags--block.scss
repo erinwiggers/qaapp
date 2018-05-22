@@ -1,0 +1,90 @@
+li {
+    + li {
+        margin-top: .5em;
+    }
+}
+
+ul,
+ol,
+li {
+    .text-right &,
+    .text-right--tablet &,
+    &[style*="text-align: right"],
+    &[style*="text-align: right"],
+    &[style*="text-align: right"],
+    &.right-list {
+        text-align: right;
+        list-style-position: inside;
+    }
+    .text-center &,
+    &[style*="text-align: center"],
+    &[style*="text-align: center"],
+    &[style*="text-align: center"],
+    &.center-list {
+        text-align: center;
+        list-style-position: inside;
+    }
+}
+
+ul {
+    &.split-list {
+        li {
+            @include bp(tablet) {
+                display: inline-block;
+                width: 40%;
+                margin-right: 3%;
+                vertical-align: top;
+                margin-top: 0;
+                margin-bottom: .5em;
+            }
+        }
+    }
+}
+
+address {
+    font-style: normal;
+}
+
+@mixin rule {
+    @include accent-color(border-bottom-color);
+    width: 20px;
+    display: inline-block;
+    margin: auto;
+    margin-top: 1.5em;
+    border: {
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    border-bottom: {
+        width: 3px;
+        style: solid;
+    }
+    max-width: 100%;
+    .legacy-hybrid-theme & {
+        width: 50px;
+    }
+}
+hr { @include rule; }
+
+blockquote {
+    font-style: italic;
+    margin: {
+        left: 0;
+        right: 0;
+    }
+    cite {
+        display: block;
+        margin-top: 1em;
+        font: {
+            style: normal;
+            size: .8em;
+            weight: bold;
+        }
+    }
+}
+
+.table-wrapper {
+    overflow-y: auto;
+    max-width: 100%;
+}

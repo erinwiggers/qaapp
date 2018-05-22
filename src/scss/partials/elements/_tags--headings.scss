@@ -1,0 +1,119 @@
+@mixin heading-elements($additional-selectors: '') {
+    $selector: 'h1, h2, h3, h4, h5, h6, .heading, ' + $additional-selectors;
+    #{$selector} { @content; }
+}
+@mixin heading {
+    text-rendering: optimizelegibility;
+    line-height: 1.2;
+    font-weight: map-get($heading-font, weight);
+    font-family: map-get($heading-font, family);
+    letter-spacing: .025em;
+    .legacy-hybrid-theme & {
+        font-family: map-get($legacy-heading-font, family);
+    }
+}
+@mixin heading-font-size($size, $mobile-base-size: map-get($base-font, size) * $mobile-scale) {
+    $scaled-size: $size * .8;
+    $mobile-size: if($scaled-size <= $mobile-base-size, 1em, $scaled-size);
+    font-size: $mobile-size;
+    @include bp(tablet) {
+        font-size: $size;
+    }
+}
+@mixin heading-color {
+    color: map-get($base-colors, headings);
+    @each $slug, $data in $colored-sections {
+        $colors: get-section-colors($slug);
+        @if (map-has-key($colors, headings)) {
+            .colored-section--#{$slug} & {
+                color: map-get($colors, headings)
+            }
+        }
+    }
+}
+
+@include heading-elements {
+    @include heading;
+    @include heading-color;
+    * + * {
+        margin-top: 0;
+    }
+    + * {
+        margin-top: .25em;
+    }
+    * + & {
+        margin-top: 1em;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    + hr {
+        margin-top: 1.5em;
+    }
+    img {
+        vertical-align: middle;
+    }
+    em {
+        @include text-color;
+        @include font-size(15);
+        display: block;
+        letter-spacing: .01em;
+        font-style: normal;
+        text-transform: uppercase;
+        line-height: 3;
+    }
+}
+$i: 1;
+@each $level in h1, h2, h3, h4, h5, h6 {
+    #{$level} {
+        @include heading-font-size(nth(map-get($heading-font, sizes), $i));
+        .legacy-hybrid-theme & {
+            @include heading-font-size(nth(map-get($legacy-heading-font, sizes), $i));
+        }
+    }
+    $i: $i + 1;
+}
+
+h1, h2 {
+    .legacy-hybrid-theme & {
+        text-transform: uppercase;
+        letter-spacing: .1em;
+    }
+}
+
+@mixin subheading {
+    @if ( map-has-key( $heading-font, sub-family) ) {
+        font-family: map-get($heading-font, sub-family);
+    }
+    font-size: 1.25em;
+    letter-spacing: .025em;
+    @include heading-elements {
+        + & {
+            margin-top: .5em;
+        }
+    }
+    .legacy-hybrid-theme & {
+        @include heading-font-size(22px);
+        font-style: italic;
+    }
+}
+
+.subheading {
+    @include subheading;
+}
+
+.cta-heading {
+    .legacy-hybrid-theme & {
+        font-family: map-get($heading-font, sub-family);
+        color: #207bcd;
+        text-transform: none;
+        letter-spacing: 0;
+        em {
+            font-family: map-get($legacy-base-font, family);
+        }
+        + * {
+            margin-top: 1.5em;
+        }
+    }
+}

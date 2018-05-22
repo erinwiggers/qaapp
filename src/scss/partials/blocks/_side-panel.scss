@@ -1,0 +1,32 @@
+body {
+    position: relative;
+    z-index: 1;
+}
+
+.side-panel {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: white;
+    max-width: 25%;
+    z-index: 9999;
+    &__wrapper {
+        position: relative;
+    }
+    &__trigger {
+        color: white;
+        border: 3px solid white;
+        border-radius: 1000px;
+        font-size: 1.5em;
+        padding: .5em .6em;
+        cursor: pointer;
+        position: absolute;
+        top: 1em;
+        left: 2em;
+        &.active {
+        left: 30%;
+        }
+    }
+}

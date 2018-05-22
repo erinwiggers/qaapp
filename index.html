@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>LW Dev QA Testing App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="js/min/simple-tabs-min.js"></script>
+    <script src="jquery.contenttoggle.js"></script>
+    <link rel="stylesheet" type="text/css" href="content/qaapp-style.css" media="screen" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+
+
+    <script type="text/javascript" src="content/qaapp-script.js"></script>
+
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+</head>
+
+<body>
+
+    <div class="side-panel__wrapper">
+        <a class="side-panel__trigger" onclick="togglePanel();">
+            <i class="fas fa-user-ninja"></i>
+        </a>
+        <div class="side-panel">
+            <div class="padded-section padded-section--full">
+                Test Content
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="tabs">
+            <nav class="tabs-nav">
+                <ul>
+                    <li data-tab="1">
+                        <i class="icon-camera fas fa-camera-retro"></i>
+                    </li>
+                    <li data-tab="2">
+                        <i class="icon-mouse fas fa-mouse-pointer"></i>
+                    </li>
+                    <li data-tab="3">
+                        <i class="icon-clipboard fas fa-clipboard-check"></i>
+                    </li>
+                </ul>
+            </nav>
+            <div class="tab-container">
+                <div class="tab-content" data-tab="1">
+                    <div class="padded-section padded-section--small padded-section--bottom">
+                        <h4>Screenshot Tests</h4>
+                        <hr>
+                    </div>
+                    <form class="simple-form">
+                        <div id="screenshot-form" class="form-field">
+                            <input type="text" id="url" name="url" style="width:400px" value="enter URL">
+                            <button class="button" onclick="runNewTest()">Run Screenshot Test</button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="tab-content" data-tab="2">
+                    <div class="padded-section padded-section--small padded-section--bottom">
+                        <h4>Live Tests</h4>
+                        <hr>
+                    </div>
+                    <form id="live-form" class="simple-form">
+                        <div class="form-field">
+                            <input type="text" id="url" name="url" style="width:400px" value="enter URL">
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="os" name="os" style="width:400px" value="desired OS">
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="browser" name="browser" style="width:400px" value="desired browser">
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="device" name="device" style="width:400px" value="desired device">
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="resolution" name="resolution" style="width:400px" value="desired resolution">
+                        </div>
+                        <button class="button" onclick="runLiveTest()">Run Screenshot Test</button>
+                    </form>
+
+                </div>
+                <div class="tab-content" data-tab="3">
+                    <div class="padded-section padded-section--small padded-section--bottom">
+                        <h4>Documentation</h4>
+                        <hr>
+                    </div>
+                    <div class="padded-section padded-section--small text-center">
+                        <button id="signin-button" class="button button--small" onclick="handleSignInClick()">Login to Google</button>
+                        <button id="signout-button" class="button button--small" onclick="handleSignOutClick()">Sign out of Google</button>
+                    </div>
+
+                    <div class="text-center">
+                        <form id="doc-form" class="simple-form">
+                            <div class="form-field">
+                                <input type="text" id="url" name="url" style="width:400px" value="enter URL">
+                            </div>
+                            <div class="form-field">
+                                <input type="text" name="client-slug" style="width:400px" value="client-slug">
+                            </div>
+                            <div class="form-field">
+                                <input type="text" name="page-slug" style="width:400px" value="page-slug">
+                            </div>
+                            <div class="form-field">
+                                <input type="text" name="testId" style="width:400px" value="2871068">
+                            </div>
+                            <div class="form-field">
+                                <input type="text" name="testVersion" style="width:400px" value="3046252">
+                            </div>
+                            <button class="button button--beta" onclick="handleData()">Get Data & Create Doc</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

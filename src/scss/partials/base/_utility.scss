@@ -1,0 +1,198 @@
+/* Real/Equal Height on mobile */
+.natural-mobile {
+    @include bp(tablet, true) {
+        height: auto !important;
+    }
+}
+
+/* Text Utility Class */
+@mixin text-side($side) {
+    .text-#{$side} {
+        @content;
+    }
+}
+@each $side in (left, center, right) {
+    @include text-side($side) {
+        text-align: $side !important;
+        &--mobile {
+            @include bp(tablet, true) {
+                text-align: $side !important;
+            }
+        }
+        &--tablet {
+            @include bp(tablet) {
+                text-align: $side !important;
+            }
+        }
+    }
+}
+
+/* Hide/Show Elements at breakpoints */
+@each $slug, $point in $breakpoints {
+    .hide-#{$slug}-and-above {
+        @include bp($slug) {
+            display: none !important;
+        }
+    }
+    .hide-#{$slug}-and-below {
+        @include bp($slug, true) {
+            display: none !important;
+        }
+    }
+}
+
+.screen-reader-text {
+    @include visually-hidden;
+}
+
+.flush-images {
+    img {
+        margin: 0;
+    }
+}
+
+.pull-over {
+    $default-distance: map-get($options, row-spacing) * 2;
+    $distances: (
+        small:     1em,
+        half:      $default-distance / 2,
+        large:     $default-distance * 1.5,
+        double:    $default-distance * 2
+    );
+    @each $direction in (top, bottom, left, right) {
+        &--#{$direction} {
+            @include pull-over($direction);
+            @each $slug, $distance in $distances {
+                &--#{$slug} {
+                    @include pull-over($direction, $distance, $distance-only: true);
+                }
+            }
+            &.colored-section.trigger-when-visible {
+                $property: if($direction == top or $direction == bottom, translateY, translateX);
+                $value: if($direction == bottom or $direction == right, -1, 1);
+                .js & {
+                    transition: 1s opacity, 1s transform;
+                    opacity: 0;
+                    transform: #{$property}#{'('}$value * $default-distance#{')'};
+                    &--visible {
+                        opacity: 1;
+                        transform: #{$property}#{'('}0#{')'};
+                    }
+                }
+            }
+        }
+    }
+    &.colored-section {
+        box-shadow: $global-shadow;
+    }
+}
+
+.overflow-container {
+    @include bp(tablet) {
+        position: relative;
+        > .row-fluid-wrapper {
+            position: absolute;
+            background-color: inherit;
+            padding: inherit;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: map-get($layers, top);
+        }
+    }
+    > .row-fluid-wrapper {
+        box-shadow: $global-shadow;
+    }
+}
+
+.fade-in {
+    &--left {
+        .js &.trigger-when-visible {
+            transform: translateX(-2em);
+        }
+    }
+    &--right {
+        .js &.trigger-when-visible {
+            transform: translateX(2em);
+        }
+    }
+    &--top {
+        .js &.trigger-when-visible {
+            transform: translateY(2em);
+        }
+    }
+    &--bottom {
+        .js &.trigger-when-visible {
+            transform: translateY(-2em);
+        }
+    }
+    .js &.trigger-when-visible {
+        opacity: 0;
+        transition: .75s;
+        &--visible {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
+.vertical-center-row,
+.vertical-bottom-row {
+    @include bp(tablet) {
+        > .row-fluid-wrapper > .row-fluid > .widget-span {
+            display: table;
+            table-layout: fixed;
+            > .cell-wrapper,
+            > .row-fluid-wrapper {
+                vertical-align: middle;
+                display: table-cell;
+                width: 100%;
+            }
+        }
+    }
+}
+.vertical-bottom-row {
+    @include bp(tablet) {
+        > .row-fluid-wrapper > .row-fluid > .widget-span {
+            > .cell-wrapper {
+                vertical-align: bottom;
+            }
+        }
+    }
+}
+.row-fluid-wrapper .vertical-center {
+    @include bp(tablet) {
+        display: table;
+        > .cell-wrapper {
+            vertical-align: middle;
+            display: table-cell;
+            border: inherit;
+        }
+    }
+}
+
+.full-height-widget {
+    &,
+    & > .row-fluid-wrapper,
+    & > .row-fluid-wrapper > .row-fluid,
+    & > .row-fluid-wrapper > .row-fluid > .widget-span,
+    & > .cell-wrapper,
+    & > .cell-wrapper > .hs_cos_wrapper {
+        height: 100%;
+    }
+}
+
+.equal-widgets {
+    > .row-fluid-wrapper {
+        > .row-fluid {
+            > .widget-span {
+                > .cell-wrapper {
+                    &,
+                    > .hs_cos_wrapper {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

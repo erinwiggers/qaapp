@@ -1,0 +1,60 @@
+.colored-section {
+    @include module-padding;
+    background: {
+        size: cover;
+        position: center center;
+    }
+    @each $name, $colors in $colored-sections {
+        &--#{$name} {
+            $colors: get-section-colors($name);
+            @include colored-section-base($name);
+            &.colored-section--down-arrow {
+                position: relative;
+                z-index: map-get($layers, middle);
+                &:before {
+                    content: '';
+                    border: 2em solid transparent;
+                    border-top-color: map-get($colors, background);
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    width: 0;
+                    margin: auto;
+                }
+            }
+        }
+    }
+    &--shadow {
+        box-shadow: $global-shadow;
+    }
+    &--overlay {
+        position: relative;
+        &:before {
+          content: '';
+          background-color: inherit;
+          opacity: .7;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: 0;
+          z-index: 1;
+        }
+    }
+}
+
+.colored-section--overlay > .row-fluid-wrapper {
+  position: relative;
+}
+
+.colored-section--overlay.onhover {
+    &:before {
+        opacity: 0;
+    }
+    &:hover {
+        &:before {
+            opacity: .7;
+        }
+    }
+}

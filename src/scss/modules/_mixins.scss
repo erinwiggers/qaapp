@@ -1,0 +1,368 @@
+@mixin bp($point, $flip: false) {
+    @if not map-has-key($breakpoints, $point) and $point != none {
+        @warn "#{$point} is not a valid break point";
+    }
+    @if $point == none {
+        @content;
+    }
+    @else if $flip {
+        @media (max-width: map-get($breakpoints, $point) - 1px) { @content; }
+    }
+    @else {
+        @media (min-width: map-get($breakpoints, $point)) { @content; }
+        .lt-ie9 & { @content; }
+    }
+}
+@mixin bp-between($small, $large) {
+    @media (min-width: map-get($breakpoints, $small)) and (max-width: map-get($breakpoints, $large) - 1px) { @content; }
+}
+
+@mixin ir {
+    text-indent: -99999px;
+    overflow: hidden;
+}
+@mixin un-ir {
+    text-indent: 0;
+}
+
+@mixin center-container($width: map-get($containers, base)) {
+    max-width: 90%;
+    width: $width !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block;
+    float: none !important;
+}
+
+@mixin clearfix {
+    &:after {
+        content: ' ';
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+@mixin pull-over($direction, $distance: map-get($options, row-spacing), $layer: map-get($layers, middle), $distance-only: false) {
+    margin-#{$direction}: -$distance / 3;
+    @if not $distance-only {
+        position: relative;
+        z-index: $layer;
+    }
+    @include bp(desktop) {
+        margin-#{$direction}: -$distance;
+    }
+}
+
+@mixin stick {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+
+@mixin hover-state($additional-selectors: '', $active: false, $focus: true) {
+    $selector: '&:hover, ';
+    @if ($active) {
+        $selector: $selector + '&:active, ';
+    }
+    @if ($focus) {
+        $selector: $selector + '&:focus, ';
+    }
+    $selector: $selector + $additional-selectors;
+    #{$selector} {
+        @content;
+    }
+}
+
+@mixin module-padding($size: 60px, $size--mobile: "", $sides: (top, bottom)) {
+    @if $size--mobile == "" {
+        $size--mobile: $size / 3;
+    }
+    @if $sides == all {
+        padding: $size--mobile;
+        @include bp(desktop) {
+            padding: $size;
+        }
+    } @else {
+        @each $side in $sides {
+            padding-#{$side}: $size--mobile;
+        }
+        @include bp(desktop) {
+            @each $side in $sides {
+                padding-#{$side}: $size;
+            }
+        }
+    }
+}
+
+@mixin row-spacing($size: map-get($options, row-spacing)) {
+    .row-fluid-wrapper + .row-fluid-wrapper { margin-top: $size; }
+}
+
+/**
+ * These modules are designed to apply the colors defined in the $section-colors
+ * variable, allowing you to define properties that behave differently when placed
+ * in different colored sections.
+ */
+@function get-section-colors($slug) {
+    $colors: map-get($colored-sections, $slug);
+    @if (map-has-key($colors, extend)) {
+        $extended-colors: get-section-colors(map-get($colors, extend));
+        $colors: map-merge($extended-colors, $colors);
+    }
+    $colors: map-merge($base-colors, $colors);
+    @return $colors;
+}
+@mixin accent-color($property) {
+    #{$property}: map-get($base-colors, accent);
+    @if ($property == 'background-color') {
+        color: map-get($base-colors, accent-harmony)
+    }
+    @each $slug, $data in $colored-sections {
+        $colors: get-section-colors($slug);
+        @if (map-has-key($colors, accent)) {
+            .colored-section--#{$slug} & {
+                #{$property}: map-get($colors, accent);
+                @if ($property == 'background-color') {
+                    color: map-get($colors, accent-harmony)
+                }
+            }
+        }
+    }
+}
+
+@mixin text-color {
+    color: map-get($base-colors, text);
+    @each $slug, $data in $colored-sections {
+        $colors: get-section-colors($slug);
+        @if (map-has-key($colors, text)) {
+            .colored-section--#{$slug} & {
+                color: map-get($colors, text);
+            }
+        }
+    }
+}
+
+@mixin link-color($hover: true, $underlines: true) {
+    @if ($hover == 'hover-only') {
+        color: map-get($base-colors, links-hover);
+    } @else {
+        @if ($hover) {
+            color: map-get($base-colors, links);
+            @if ($underlines and map-get($base-colors, links) == map-get($base-colors, text)) {
+                text-decoration: underline;
+            }
+            @include hover-state {
+                color: map-get($base-colors, links-hover);
+            }
+            @each $slug, $data in $colored-sections {
+                $colors: get-section-colors($slug);
+                @if (map-has-key($colors, links)) {
+                    .colored-section--#{$slug} & {
+                        color: map-get($colors, links);
+                        @if ($underlines and map-get($colors, links) == map-get($colors, text)) {
+                            text-decoration: underline;
+                        }
+                        @include hover-state {
+                            @if (map-has-key($colors, links-hover)) {
+                                color: map-get($colors, links-hover);
+                            } @else {
+                                color: darken(map-get($colors, links), 20%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin border-color($sides: all) {
+    @if ($sides == all) {
+        border-color: map-get($base-colors, borders);
+        @each $slug, $data in $colored-sections {
+            $colors: get-section-colors($slug);
+            @if (map-has-key($colors, accent)) {
+                .colored-section--#{$slug} & {
+                    border-color: map-get($colors, borders);
+                }
+            }
+        }
+    } @else {
+        @each $side in $sides {
+            border-#{$side}-color: map-get($base-colors, borders);
+            @each $slug, $data in $colored-sections {
+                $colors: get-section-colors($slug);
+                @if (map-has-key($colors, accent)) {
+                    .colored-section--#{$slug} & {
+                        border-#{$side}-color: map-get($colors, borders);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin colored-section-base($section) {
+    $colors: get-section-colors($section);
+    $background: map-get($colors, background);
+    color: map-get($colors, text);
+    @if type-of($background) == list {
+        background-image: linear-gradient(to right, $background);
+        $background: nth($background, 1);
+        background-color: $background;
+    } @else {
+        background-color: $background;
+    }
+    @if lightness($background) < lightness(#aaa) {
+        .button,
+        .hs_submit .actions {
+            color: white !important;
+        }
+    }
+}
+
+@mixin colored-section-color($property, $color) {
+    #{$property}: map-get($base-colors, $color);
+    @each $slug, $data in $colored-sections {
+        $colors: get-section-colors($slug);
+        @if map-has-key($colors, $color) {
+            .colored-section--#{$slug} & {
+                #{$property}: map-get($colors, $color);
+            }
+        }
+    }
+}
+
+@mixin toolbar($options: 'ul', $title: 'h3') {
+    @include clearfix;
+    @include font-size(15);
+    color: #838696;
+    padding: .5em;
+    border-radius: 3em;
+    background-color: #ecedef;
+    @include bp(desktop) {
+        #{$options} {
+            float: right;
+            margin: 0;
+            width: 80%;
+        }
+        #{$title} {
+            width: 20%;
+            float: left;
+        }
+    }
+    @include bp(desktop, true) {
+        text-align: center;
+    }
+    #{$title} {
+        font-size: 1em;
+        color: map-get($base-colors, headings);
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: inherit;
+    }
+}
+
+@function strip-unit($num) {
+    @return $num / ($num * 0 + 1);
+}
+
+@mixin rem($property, $values...) {
+    $max: length($values);
+    $pxValues: '';
+    $remValues: '';
+
+    @for $i from 1 through $max {
+        $value: strip-unit(nth($values, $i));
+        $pxValues: #{$pxValues + strip-unit($value)}px;
+
+        @if $i < $max {
+            $pxValues: #{$pxValues + " "};
+        }
+    }
+
+    @for $i from 1 through $max {
+        $value: strip-unit(nth($values, $i));
+        $remValues: #{$remValues + $value / strip-unit(map-get($base-font, size))}rem;
+
+        @if $i < $max {
+            $remValues: #{$remValues + " "};
+        }
+    }
+
+    #{$property}: $pxValues;
+    #{$property}: $remValues;
+}
+
+@mixin font-size($value) {
+    @include rem(font-size, $value);
+}
+
+@function file($path, $portal: $portal-id) {
+    @return unquote("//cdn2.hubspot.net/hubfs/") + $portal + "/" + $path;
+}
+
+@mixin sprite-scaling($icon, $dimensions) {
+    $scale: nth($dimensions, 1) / nth($icon, 5);
+    background-size: round($spritesheet-width * $scale) round($spritesheet-height * $scale);
+}
+@mixin sprite-icon($icon, $dimensions, $dimensions-mobile: '', $position-only: true) {
+    $offset-x: nth($icon, 3);
+    $offset-y: nth($icon, 4);
+    $scale: nth($dimensions, 1) / nth($icon, 5);
+    background-position: round(($offset-x * $scale)) round(($offset-y * $scale));
+    @if (not $position-only) {
+        @include sprite-scaling($icon, $dimensions);
+        width: nth($dimensions, 1);
+        height: nth($dimensions, 2);
+    }
+    @if $dimensions-mobile != '' {
+        @include bp(tablet, true) {
+            $scale: nth($dimensions-mobile, 1) / nth($icon, 5);
+            @include sprite-scaling($icon, $dimensions-mobile);
+            background-position: ($offset-x * $scale) ($offset-y * $scale);
+            @if (not $position-only) {
+                width: nth($dimensions-mobile, 1);
+                height: nth($dimensions-mobile, 2);
+            }
+        }
+    }
+}
+$spritesheet-image: url(file('sunset/sprite.png'));
+@mixin sprite-icons($dimensions, $dimensions-mobile: '', $pseudo: ':before') {
+    @each $icon in $spritesheet-sprites {
+        &--#{nth($icon, 10)}#{$pseudo} {
+            @include sprite-icon($icon, $dimensions, $dimensions-mobile);
+        }
+    }
+}
+
+@mixin font-face($style-name, $path, $weight: "", $style: "") {
+    $filepath: quote(file($path));
+    @font-face {
+        font-family: $style-name;
+        src: url($filepath + "-eot.eot");
+        src: url($filepath + "-eot.eot?#iefix") format('embedded-opentype'), url($filepath + "-woff.woff") format('font-woff'), url($filepath + "-ttf.ttf")  format('truetype'), url($filepath + "-svg.svg#" + $style-name + "") format('svg');
+        font: {
+            @if $weight != "" {
+                weight: $weight;
+            }
+            @if $style != "" {
+                style: $style;
+            }
+        }
+    }
+}

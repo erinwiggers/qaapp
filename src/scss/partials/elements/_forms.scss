@@ -1,0 +1,16 @@
+/*=============================
+  INPUTS
+==============================*/
+input, textarea {
+  border: none; }
+input {
+  padding: .5em;
+  border: 1px solid #ef6b55;
+  background-color: ghostwhite;
+  margin: .5em 0;
+  color: #aaaaaa;
+}
+input:focus {
+  outline: #dd6379;
+  color: #dd6379;
+}

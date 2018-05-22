@@ -1,0 +1,40 @@
+{
+  "name": "qaapp",
+  "version": "0.1.0",
+  "description": "Development QA Workflow App",
+  "contributors": [
+    {
+      "name": "Erin Wiggers",
+      "email": "erin.wiggers@lyntonweb.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://erinwiggers.github.io"
+  },
+  "devDependencies": {
+    "glob": "latest",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-concat": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-jshint": "latest",
+    "gulp-newer": "latest",
+    "gulp-notify": "latest",
+    "gulp-plumber": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-util": "latest",
+    "jshint": "latest",
+    "jshint-stylish": "latest",
+    "vinyl-ftp": "latest"
+  },
+  "dependencies": {
+    "gulp-svg2png": "^2.0.2",
+    "gulp-uglify": "^2.1.0",
+    "gulp.spritesmith": "^6.3.0",
+    "merge-stream": "^1.0.1",
+    "sprity-sass": "^1.0.4",
+    "vinyl-buffer": "^1.0.0"
+  }
+}

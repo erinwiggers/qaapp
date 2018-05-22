@@ -1,0 +1,47 @@
+// Make sure you've got all the fonts you need embedded in some way!
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Lato:400,700,400italic,700italic');
+
+$base-font: (
+    size:   17px,
+    family: (proxima-nova, Helvetica Neue, Helvetica, Arial, sans-serif),
+    weight: 300
+);
+
+$legacy-base-font: (
+    size:   18px,
+    family: (Lato, Helvetica Neue, Helvetica, Arial, sans-serif),
+    weight: 400
+);
+
+$heading-font: (
+    sizes:   (
+        65px,
+        32px,
+        18px,
+        16px,
+        16px,
+        16px
+    ),
+    weight: 400,
+    sub-family: (Georgia, Times, Times New Roman, serif)
+);
+
+$legacy-heading-font: (
+    sizes:   (
+        50px,
+        34px,
+        24px,
+        20px,
+        18px,
+        18px
+    ),
+    weight: 400,
+    family: (Montserrat, map-get($base-font, family))
+);
+
+$button-font: (
+    size: 16px, // "em" units mean that the font size will scale depending on the surrounding font sizes in the document
+    family: map-get($heading-font, family)
+);
+
+$mobile-scale:  .9; // The base font will scale by this factor on small screens
