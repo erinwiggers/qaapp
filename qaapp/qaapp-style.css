@@ -605,7 +605,23 @@ pre { margin: 6% 0 0 0; display: block; word-break: normal; background-color: #3
 
 @media (max-width: 800px) { .downloads { position: static; width: 100%; } }
 
+/*======================================= GENERAL STATES ========================================*/
+.block { display: block; }
+
+.active, li.active { color: #edbdc8; border-bottom: 1px solid #fff; background-color: #fff; }
+
 .hide { display: none; }
+
+.show { display: block; }
+
+/*======================================= POSITIONING ========================================*/
+.fixed { position: fixed; }
+
+.absolute { position: absolute; }
+
+.relative { position: relative; }
+
+.top { top: 0; }
 
 /* Real/Equal Height on mobile */
 @media (max-width: 767px) { .natural-mobile { height: auto !important; } }
