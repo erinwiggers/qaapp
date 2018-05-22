@@ -93,9 +93,9 @@ var parseResults = function (testData) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url
 
-        resultsArray += [{ result_id, result_os, result_browser, result_resolution }];
+        resultsArray += [{result_id, result_os, result_browser, result_resolution }];
     }
-    console.log(resultsArray);
+    console.log(JSON.parse(resultsArray));
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
