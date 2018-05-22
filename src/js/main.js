@@ -130,7 +130,7 @@ var buildDoc = function () {
             valueInputOption: 'USER_ENTERED',
             data: [
                 {
-                    "majorDimension": "COLUMNS",
+                    "majorDimension": "ROWS",
                     "range": "A1:A6",
                     "values": [
                         [
@@ -154,7 +154,7 @@ var buildDoc = function () {
                     ]
                 },
                 {
-                    "majorDimension": "ROWS",
+                    "majorDimension": "COLUMNS",
                     "range": "A9:E",
                     "values": [
                         [
