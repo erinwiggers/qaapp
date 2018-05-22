@@ -101,7 +101,7 @@ var parseResults = function (testData) {
     function addResults() {
         const allResults = displayResults();
     }
-    console.log(Object.entries(allResults));
+    console.log(Object.entries(allResults()));
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
