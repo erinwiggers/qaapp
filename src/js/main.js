@@ -186,7 +186,7 @@ var buildDoc = function () {
         client_slug = $("input[name=client-slug]").val();
         
     createSheet(client_slug + " QA Documentation", page_slug);
-    populateSheet(newSpreadsheetId, testObject);
+    populateSheet(newSpreadsheetId);
 }
 
 // START DOCUMENTATION HANDLER
