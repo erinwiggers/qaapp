@@ -1,6 +1,3 @@
-$(function () {
-    "use strict";    
-    
 // UI Scripts
     // TABS
     
@@ -292,5 +289,3 @@ $(function () {
     function handleSignOutClick(event) {
         gapi.auth2.getAuthInstance().signOut();
     }
-
-}
