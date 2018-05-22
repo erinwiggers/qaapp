@@ -1,13 +1,11 @@
 @mixin button-color($color-name: base) {
     $colors: map-get($button-colors, $color-name);
     color: map-get($colors, text) !important;
+    background-color: map-get($colors, border);
     border-color: map-get($colors, border);
     box-shadow: 0 0 0 map-get($colors, border) inset;
     @include hover-state($active: true) {
         box-shadow: 0 2px 0 map-get($colors, border) inset;
-    }
-    &:active {
-        background-color: rgba(map-get($colors, border), .1);
     }
     .legacy-hybrid-theme & {
         color: white !important;
@@ -39,6 +37,7 @@
     font: {
         size: map-get($button-font, size);
         family: map-get($button-font, family);
+        weight: bold;
     }
 }
 
