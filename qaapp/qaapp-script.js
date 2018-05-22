@@ -116,12 +116,13 @@ var buildDoc = function () {
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
+            populateSheet(newSpreadsheetId);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
     };
 
-    var populateSheet = function (spreadsheetId, sheet_name) {
+    var populateSheet = function (spreadsheetId) {
         var params = {
             spreadsheetId: spreadsheetId
         };
@@ -187,7 +188,6 @@ var buildDoc = function () {
         client_slug = $("input[name=client-slug]").val();
         
     createSheet(client_slug + " QA Documentation", page_slug);
-    populateSheet(newSpreadsheetId);
 }
 
 // START DOCUMENTATION HANDLER
