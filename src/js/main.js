@@ -20,3 +20,4 @@
             $(".side-panel").animate({ "width": "toggle" });
         });
     });
+ 
