@@ -106,7 +106,7 @@ var buildDoc = function () {
         var spreadsheetBody = {
             properties: {
                 "title": title
-            }
+            },
             sheet: {
                 properties: {
                     "title": sheet_name
