@@ -99,10 +99,8 @@ var parseResults = function (test) {
 
     var results = $.makeArray(test.versions[0].results);
 
-    /*
     var testObj = [{}];
     for (i=0, results.length; i < results.length; i++) {
-        var resultsArray[i] = [{}];
         var result_id = results[i].result_id,
             result_os = results[i].os['name'],
             result_browser = results[i].browser['name'],
@@ -111,17 +109,44 @@ var parseResults = function (test) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
         
-    } */
-    
-    var createArray = {
-        url,
-        show_url,
-        date, 
-        count, 
-        version_id
-    };
-    
-    return createArray;
+        var populateResults = function(spreadsheetId, id, os, browser, resolution, tags, result_url, live_url) {
+            var params = {
+                spreadsheetId: spreadsheetId
+            };
+            var formattedDate = date.split("T")[0];
+            var batchUpdateValuesRequestBody = {
+                valueInputOption: 'USER_ENTERED',
+                responseValueRenderOption: "FORMULA",
+                data: [
+                    {
+                        "majorDimension": "COLUMNS",
+                        "range": "A10:F",
+                        "values": [
+                            [
+                                "=HYPERLINK(\"" + result_url + "\", \"" + id + "\")"
+                            ],
+                            [
+                                "=T(\"" + os + "\")"
+                            ],
+                            [
+                                "=T(\"" + browser + "\")"
+                            ],
+                            [
+                                "=T(\"" + resolution + "\")"
+                            ],
+                            [
+                                "=T(\"" + tags + "\")"
+                            ],
+                            [
+                                "=HYPERLINK(\"" + live_url + "\", \"Start Live Test\" )"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        } 
+        populateResults(spreadsheetId, result_id, result_os, result_browser, result_tags, show_result, launch_live);     
+    }
 
 };
 
@@ -206,7 +231,7 @@ var buildDoc = function (test) {
             sheets: {
                 properties: {
                     "title": sheet_name
-                },
+                }/*,
                 conditionalFormats: {
                     "booleanRule": {
                         "condition": {
@@ -235,7 +260,7 @@ var buildDoc = function (test) {
                         }
                     ]
                 }
-            }
+            } */
         };
         var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
         request.then(function (response) {
