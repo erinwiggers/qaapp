@@ -183,7 +183,40 @@ var buildDoc = function (test) {
         var spreadsheetBody = {
             properties: {
                 "title": title
-            }
+            },
+            sheets: {
+                properties: {
+                    "title": page_slug
+                }/*,
+                conditionalFormats: {
+                    "booleanRule": {
+                        "condition": {
+                            "type": "NOT_BLANK"
+                        },
+                        "format": {
+                            "padding": {
+                                "bottom": 10,
+                                "left": 20,
+                                "right": 20,
+                                "top": 10
+                            },
+                            "textFormat": {
+                                "bold": true,
+                                "fontSize": 20
+                            }
+                        }
+                    },
+                    "ranges": [
+                        {
+                            "endColumnIndex": 1,
+                            "endRowIndex": 1,
+                            "startColumnIndex": 1,
+                            "startRowIndex": 1,
+                            "sheetId": firstSheetId
+                        }
+                    ]
+                }*/
+            } 
         };
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
@@ -251,40 +284,7 @@ var buildDoc = function (test) {
                         ]
                     ]
                 }
-            ],
-            sheets: {
-                properties: {
-                    "title": page_slug
-                }/*,
-                conditionalFormats: {
-                    "booleanRule": {
-                        "condition": {
-                            "type": "NOT_BLANK"
-                        },
-                        "format": {
-                            "padding": {
-                                "bottom": 10,
-                                "left": 20,
-                                "right": 20,
-                                "top": 10
-                            },
-                            "textFormat": {
-                                "bold": true,
-                                "fontSize": 20
-                            }
-                        }
-                    },
-                    "ranges": [
-                        {
-                            "endColumnIndex": 1,
-                            "endRowIndex": 1,
-                            "startColumnIndex": 1,
-                            "startRowIndex": 1,
-                            "sheetId": firstSheetId
-                        }
-                    ]
-                }*/
-            } 
+            ]
         };
         var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
         request.then(function (response) {
