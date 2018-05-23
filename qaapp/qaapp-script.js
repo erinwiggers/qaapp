@@ -28,6 +28,7 @@
 var username = "social@lyntonweb.com", //email address for your account
     password = "u0856709d93976a5", //authkey for your account
     test = null,
+    newSpreadsheetId = null,
     getDataClicked = false;
     
 
@@ -99,7 +100,6 @@ var parseResults = function (test) {
 
     var results = $.makeArray(test.versions[0].results);
 
-    var testObj = [{}];
     for (i=0, results.length; i < results.length; i++) {
         var result_id = results[i].result_id,
             result_os = results[i].os['name'],
@@ -109,7 +109,7 @@ var parseResults = function (test) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
         
-        var populateResults = function(spreadsheetId, id, os, browser, resolution, tags, result_url, live_url) {
+        var populateResults = function (id, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
             var params = {
                 spreadsheetId: spreadsheetId
             };
@@ -145,14 +145,13 @@ var parseResults = function (test) {
                 ]
             }
         } 
-        populateResults(spreadsheetId, result_id, result_os, result_browser, result_tags, show_result, launch_live);     
+        populateResults(id, result_id, result_os, result_browser, result_tags, show_result, launch_live);     
     }
 
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
 var buildDoc = function (test) {
-    var newSpreadsheetId = null;
     var page_slug = $("input[name=page-slug]").val(),
         client_slug = $("input[name=client-slug]").val();
     
