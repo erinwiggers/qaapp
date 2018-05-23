@@ -40,6 +40,10 @@ var getResults = function () {
     var test_id = $("input[name=test_id]").val(),
         version_id = $("input[name=version_id]").val(),
         loader = $(".loader");
+    var progress1 = $("<p>connected to server</p>"),
+        progress2 = $("<p>request sent</p>"),
+        progress3 = $("<p>processing...</p>"),
+        progress4 = $("<p>complete!</p>");
 
     var xhr = new XMLHttpRequest();
     if (version_id != null) {
@@ -52,19 +56,21 @@ var getResults = function () {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 1) {
             console.log("connected to server");
+            loader.addClass("show-loader");
             loader.addClass("animate-loader");
-            loader.append("<p>connected to server</p>");
+            loader.append(progress1);
         } else if (xhr.readyState == 2) {
             console.log("reqest sent");
-            loader.remove("<p>connected to server</p>");
-            loader.append("<p>request sent</p>");
+            loader.remove(progress1);
+            loader.append(progress2);
         } else if (xhr.readyState == 3) {
             console.log("processing request");
-            loader.remove("<p>request sent</p>");
-            loader.append("<p>processing...</p>");
+            loader.remove(progress2);
+            loader.append(progress3);
         } else if (xhr.readyState == 4) {
             console.log("complete");
-            loader.remove("<p>processing...</p>");
+            loader.remove(progress3);
+            loader.append(progress4);
             loader.removeClass("animate-loader");
             testData = JSON.parse(xhr.responseText);
             console.log(testData);
