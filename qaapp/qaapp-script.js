@@ -99,6 +99,16 @@ var parseResultsOne = function (test) {
         tags = test.versions[0].tags;
 
     var results = $.makeArray(test.versions[0].results);
+    
+    var createArray = {
+        url,
+        show_url,
+        date,
+        count,
+        version_id
+    };
+
+    return createArray;
 }
 
 var populateResults = function (test) {
