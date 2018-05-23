@@ -82,6 +82,7 @@ var parseResults = function (testData) {
 
     var results = $.makeArray(test.versions[0].results);
 
+    /*
     var testObj = [{}];
     for (i=0, results.length; i < results.length; i++) {
         var resultsArray[i] = [{}];
@@ -93,7 +94,7 @@ var parseResults = function (testData) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
         
-    }
+    } */
     
     var createArray = {
         url,
