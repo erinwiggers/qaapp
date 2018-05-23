@@ -60,7 +60,8 @@ var getResults = function () {
         } else if (xhr.readyState == 4) {
             console.log("complete");
             testData = JSON.parse(xhr.responseText);
-            parseResults(testData);
+            console.log(testData);
+            //parseResults(testData);
         } else {
             console.log("Something went wrong");
         }
