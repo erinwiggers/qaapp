@@ -103,7 +103,7 @@ var parseResults = function (testData) {
         ];
         testObj += resultsArray;
     }
-    console.log(testObj);
+    console.log(JSON.parse(testObj));
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
