@@ -135,51 +135,20 @@ var buildDoc = function (test) {
         var spreadsheetBody = {
             properties: {
                 "title": title
-            },
-            sheets: {
-                properties: {
-                    "title": sheet_name
-                },
-                conditionalFormats: {
-                    "booleanRule": {
-                        "condition": {
-                            "type": "NOT_BLANK"
-                        },
-                        "format": {
-                            "padding": {
-                                "bottom": 10,
-                                "left": 20,
-                                "right": 20,
-                                "top": 10
-                            },
-                            "textFormat": {
-                                "bold": true,
-                                "fontSize": 20
-                            }
-                        }
-                    },
-                    "ranges": [
-                        {
-                            "endColumnIndex": 1,
-                            "endRowIndex": 1,
-                            "startColumnIndex": 1,
-                            "startRowIndex": 1
-                        }
-                    ]
-                }
             }
         };
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
+            firstSheetId = response.result.sheet.properties.sheetId;
             var sheetVars = parseResults(test);
-            populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
+            populateNewSheet(newSpreadsheetId, firstSheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
     };
 
-    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, count, version_id) {
+    var populateNewSheet = function (spreadsheetId, firstSheetId, page_slug, url, show_url, date, count, version_id) {
         var params = {
             spreadsheetId: spreadsheetId
         };
@@ -233,7 +202,40 @@ var buildDoc = function (test) {
                         ]
                     ]
                 }
-            ]
+            ],
+            sheets: {
+                properties: {
+                    "title": sheet_name
+                },
+                conditionalFormats: {
+                    "booleanRule": {
+                        "condition": {
+                            "type": "NOT_BLANK"
+                        },
+                        "format": {
+                            "padding": {
+                                "bottom": 10,
+                                "left": 20,
+                                "right": 20,
+                                "top": 10
+                            },
+                            "textFormat": {
+                                "bold": true,
+                                "fontSize": 20
+                            }
+                        }
+                    },
+                    "ranges": [
+                        {
+                            "endColumnIndex": 1,
+                            "endRowIndex": 1,
+                            "startColumnIndex": 1,
+                            "startRowIndex": 1,
+                            "sheetId": firstSheetId
+                        }
+                    ]
+                }
+            }
         };
         var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
         request.then(function (response) {
