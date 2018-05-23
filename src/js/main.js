@@ -157,7 +157,7 @@ var buildDoc = function (test) {
             spreadsheetId: spreadsheetId
         };
         var batchUpdateValuesRequestBody = {
-            valueInputOption: 'RAW',
+            valueInputOption: 'USER_ENTERED',
             responseValueRenderOption: "FORMULA",
             data: [
                 {
