@@ -61,18 +61,18 @@ var getResults = function () {
             loader.append(progress1);
         } else if (xhr.readyState == 2) {
             console.log("reqest sent");
-            loader.remove(progress1);
+            progress1.addClass("hide");
             loader.append(progress2);
         } else if (xhr.readyState == 3) {
             console.log("processing request");
-            loader.remove(progress2);
+            progress2.addClass("hide");
             loader.append(progress3);
         } else if (xhr.readyState == 4) {
             console.log("complete");
-            loader.remove(progress3);
+            progress3.addClass("hide");
             loader.append(progress4);
             loader.removeClass("animate-loader");
-            testData = JSON.parse(xhr.responseText);
+            var testData = JSON.parse(xhr.responseText);
             console.log(testData);
             //parseResults(testData);
         } else {
