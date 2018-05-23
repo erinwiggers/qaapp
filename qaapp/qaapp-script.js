@@ -163,8 +163,7 @@ var buildDoc = function (test) {
                             "endColumnIndex": 1,
                             "endRowIndex": 1,
                             "startColumnIndex": 1,
-                            "startRowIndex": 1,
-                            "sheetId": 0
+                            "startRowIndex": 1
                         }
                     ]
                 }
