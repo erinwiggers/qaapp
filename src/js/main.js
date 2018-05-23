@@ -113,8 +113,7 @@ var parseResultsTwo = function (test, spreadsheetId) {
 
     var allResults = function() {
         $.each(test.versions[0].results, function (key, value) {
-            var i = 1++;
-            var range = (10 + (1 * i)) + ":100";
+            var range = (10 + (1 * 1++)) + ":100";
             setTimeout(function () {
                 populateResults(spreadsheetId, range, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
             }, 3000);
