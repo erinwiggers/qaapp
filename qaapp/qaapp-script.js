@@ -95,7 +95,7 @@ var parseResults = function (testData) {
         var resultsArray = [
             { "result_id": result_id },
             { "result_os": result_os },
-            { "result_browser": result_broswer },
+            { "result_browser": result_browser },
             { "result_resolution": result_resolution },
             { "result_tags": result_tags },
             { "show_result": show_result },
