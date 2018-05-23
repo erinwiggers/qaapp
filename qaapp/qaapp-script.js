@@ -87,7 +87,21 @@ var getResults = function () {
 };
 
 // PARSE SCREENSHOT TEST RESULTS
-var parseResults = function (test) {
+var parseResultsOne = function (test) {
+    var count = test.version_count,
+        id = test.screenshot_test_id,
+        date = test.created_date,
+        url = test.url,
+        result_count = test.versions[0].result_count.successful,
+        result_total = test.versions[0].result_count.total,
+        version_id = test.versions[0].version_id,
+        show_url = test.versions[0].show_results_web_url,
+        tags = test.versions[0].tags;
+
+    var results = $.makeArray(test.versions[0].results);
+}
+
+var populateResults = function (test) {
     var count = test.version_count,
         id = test.screenshot_test_id,
         date = test.created_date,
@@ -165,8 +179,9 @@ var buildDoc = function (test) {
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
             //firstSheetId = JSON.parse(response.result.sheet).properties.sheetId;
-            var sheetVars = parseResults(test);
+            var sheetVars = parseResultsOne(test);
             populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
+            populateResults(test);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
