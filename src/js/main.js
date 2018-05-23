@@ -146,19 +146,73 @@ var buildDoc = function (test) {
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
             var sheetVars = parseResults(test);
-            populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.version_count, sheetVars.version_id);
+            populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
     };
 
-    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, version_count, version_id) {
+    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, count, version_id) {
         var params = {
             spreadsheetId: spreadsheetId
         };
+        var formattedDate = date.split("T").first();
         var batchUpdateValuesRequestBody = {
             valueInputOption: 'USER_ENTERED',
             responseValueRenderOption: "FORMULA",
+            conditionalFormats: [
+                {
+                    "ranges": [
+                        {
+                            "startRowIndex": 1,
+                            "endRowIndex": 1,
+                            "startColumnIndex": 1,
+                            "endColumnIndex": 1
+                        }
+                    ],
+                    "booleanRule": {
+                        "condition": {
+                            "type": "NOT_BLANK"
+                        },
+                        "format": {
+                            "textFormat": {
+                                "bold": true,
+                                "font-size": 20,
+                                "padding": {
+                                    "top": 10,
+                                    "bottom": 10,
+                                    "left": 20,
+                                    "right": 20
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "ranges": [
+                        {
+                            "startRowIndex": 9,
+                            "endRowIndex": 9,
+                            "startColumnIndex": 1,
+                            "endColumnIndex": 5
+                        }
+                    ],
+                    "booleanRule": {
+                        "condition": {
+                            "type": "NOT_BLANK"
+                        },
+                        "format": {
+                            "textFormat": {
+                                "foregroundColor": {
+                                    "blue": 1,
+                                    "alpha": 0.5
+                                },
+                                "bold": true
+                            }
+                        }
+                    }
+                }
+            ],
             data: [
                 {
                     "majorDimension": "ROWS",
@@ -171,10 +225,10 @@ var buildDoc = function (test) {
                             "=HYPERLINK(\"" + url + "\", \"" + spreadsheetId + "\")"
                         ],
                         [
-                            "=DATEVALUE(\"" + date + "\")"
+                            "=DATEVALUE(\"" + formattedDate + "\")"
                         ],
                         [
-                            "=T(\"" + version_count + "\")"
+                            "=T(\"" + count + "\")"
                         ],
                         [
                             "=T(\"" + version_id + "\")"
