@@ -101,9 +101,8 @@ var parseResults = function (testData) {
         show_url,
         date, 
         result_count, 
-        version_id, 
-        pass
-    }
+        version_id
+    };
     
     return createArray;
 
@@ -135,7 +134,7 @@ var buildDoc = function () {
         });
     };
 
-    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, result_count, version_id, pass) {
+    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, result_count, version_id) {
         var params = {
             spreadsheetId: spreadsheetId
         };
