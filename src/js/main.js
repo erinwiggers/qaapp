@@ -109,7 +109,7 @@ var parseResults = function (test) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
         
-        var populateResults = function (id, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
+        var populateResults = function (spreadsheetId, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
             var params = {
                 spreadsheetId: spreadsheetId
             };
