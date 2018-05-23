@@ -81,7 +81,6 @@ var parseResults = function (testData) {
         tags = test.versions[0].tags;
 
     var results = $.makeArray(test.versions[0].results);
-    var output = "";
 
     var testObj = [{}];
     for (i=0, results.length; i < results.length; i++) {
@@ -93,23 +92,27 @@ var parseResults = function (testData) {
             result_tags = results[i].tags,
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
-        resultsArray[i] = {
-            "result_id": result_id,
-            "result_os": result_os,
-            "result_browser": result_browser,
-            "result_resolution": result_resolution,
-            "result_tags": result_tags,
-            "show_result": show_result,
-            "launch_live": launch_live
-        };
-        var testObj = $.extend({}, resultsArray, resultsArray[i]);
+        
     }
-    console.log(testObj);
+    
+    var createArray = {
+        url,
+        show_url,
+        date, 
+        result_count, 
+        version_id, 
+        pass
+    }
+    
+    return createArray;
+
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
 var buildDoc = function () {
     var newSpreadsheetId = null;
+    var page_slug = $("input[name=page-slug]").val(),
+        client_slug = $("input[name=client-slug]").val();
     
     var createSheet = function (title, sheet_name) {
         var spreadsheetBody = {
@@ -125,13 +128,13 @@ var buildDoc = function () {
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
-            populateSheet(newSpreadsheetId);
+            populateNewSheet(newSpreadsheetId, parseResults());
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
     };
 
-    var populateSheet = function (spreadsheetId) {
+    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, result_count, version_id, pass) {
         var params = {
             spreadsheetId: spreadsheetId
         };
@@ -143,19 +146,19 @@ var buildDoc = function () {
                     "range": "A1:A6",
                     "values": [
                         [
-                            "page_slug"
+                            page_slug
                         ],
                         [
-                            "screenshot_test_id"
+                            spreadsheetId
                         ],
                         [
-                            "created_date"
+                            date
                         ],
                         [
-                            "version_count"
+                            version_count
                         ],
                         [
-                            "version_id"
+                            version_id
                         ],
                         [
                             "pass_percentage"
@@ -193,9 +196,6 @@ var buildDoc = function () {
         });
     };
     
-    var page_slug = $("input[name=page-slug]").val(),
-        client_slug = $("input[name=client-slug]").val();
-        
     createSheet(client_slug + " QA Documentation", page_slug);
 }
 
