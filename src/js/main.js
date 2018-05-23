@@ -92,7 +92,7 @@ var parseResults = function (testData) {
             result_tags = results[i].tags,
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
-        var resultsArray = [
+        var resultsArray[i] = [
             { "result_id": result_id },
             { "result_os": result_os },
             { "result_browser": result_browser },
@@ -101,9 +101,9 @@ var parseResults = function (testData) {
             { "show_result": show_result },
             { "launch_live": launch_live }
         ];
-        testObj += resultsArray;
+        var testObj = $.extend({}, resultsArray, resultsArray[i]);
     }
-    console.log(JSON.parse(testObj));
+    console.log(testObj);
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
