@@ -113,8 +113,9 @@ var parseResultsTwo = function (test, spreadsheetId) {
 
     var allResults = function() {
         $.each(test.versions[0].results, function (key, value) {
+            var range = (10 + (1 * index)) + ":100";
             setTimeout(function () {
-                populateResults(spreadsheetId, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
+                populateResults(spreadsheetId, range, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
             }, 3000);
         }); 
     };
@@ -147,7 +148,7 @@ var parseResultsTwo = function (test, spreadsheetId) {
 
 };
 
-var populateResults = function (spreadsheetId, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
+var populateResults = function (spreadsheetId, range, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
     var params = {
         spreadsheetId: spreadsheetId
     };
@@ -157,7 +158,7 @@ var populateResults = function (spreadsheetId, result_id, result_os, result_brow
         data: [
             {
                 "majorDimension": "COLUMNS",
-                "range": "10:100",
+                "range": range,
                 "values": [
                     [
                         "=HYPERLINK(\"" + result_url + "\", \"" + result_id + "\")"
