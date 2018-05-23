@@ -165,22 +165,22 @@ var buildDoc = function (test) {
                     "range": "A1:A6",
                     "values": [
                         [
-                            "=T('" + page_slug + "')"
+                            "=T(\"" + page_slug + "\")"
                         ],
                         [
-                            "=HYPERLINK('" + url + "', '" + spreadsheetId + "')"
+                            "=HYPERLINK(\"" + url + "\", \"" + spreadsheetId + "\")"
                         ],
                         [
-                            "=DATEVALUE('" + date + "')"
+                            "=DATEVALUE(\"" + date + "\")"
                         ],
                         [
-                            "=T('" + version_count + "')"
+                            "=T(\"" + version_count + "\")"
                         ],
                         [
-                            "=T('" + version_id + "')"
+                            "=T(\"" + version_id + "\")"
                         ],
                         [
-                            "=T('" + "pass_percentage" + "')"
+                            "=T(\"" + "pass_percentage" + "\")"
                         ]
                     ]
                 },
