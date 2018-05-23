@@ -85,18 +85,25 @@ var parseResults = function (testData) {
 
     var resultsArray = [{}];
     for (i = 0, results.length; i < results.length; i++) {
-        testObject = [
-            { "result_id": results[i].result_id },
-            { "result_os": results[i].os['name'] },
-            { "result_browser": results[i].browser['name'] },
-            { "result_resolution": results[i].resolution['name'] },
-            { "result_tags": results[i].tags },
-            { "show_result": results[i].show_result_web_url },
-            { "launch_live": results[i].launch_live_test_url }
-        ]
-        resultsArray += testObject[i].value;
+        var result_id = results[i].result_id,
+            result_os = results[i].os['name'],
+            result_browser = results[i].browser['name'],
+            result_resolution = results[i].resolution['name'],
+            result_tags = results[i].tags,
+            show_result = results[i].show_result_web_url,
+            launch_live = results[i].launch_live_test_url;
+        var resultsArray = [
+            { "result_id": reult_id },
+            { "result_os": result_os },
+            { "result_browser": result_broswer },
+            { "result_resolution": result_resolution },
+            { "result_tags": result_tags },
+            { "show_result": show_result },
+            { "launch_live": launch_live }
+        ];
+        testObj += resultsArray;
     }
-    console.log(resultsArray);
+    console.log(testObj);
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
