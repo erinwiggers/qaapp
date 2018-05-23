@@ -139,57 +139,57 @@ var buildDoc = function (test) {
             sheets: {
                 properties: {
                     "title": sheet_name
-                }
-            },
-            conditionalFormats: {
-                addConditionalFormatRule: {
-                    "rule": {
-                        "ranges": [
-                            {
-                                "startRowIndex": 1,
-                                "endRowIndex": 1,
-                                "startColumnIndex": 1,
-                                "endColumnIndex": 1
-                            }
-                        ],
-                        "booleanRule": {
-                            "condition": {
-                                "type": "NOT_BLANK"
-                            },
-                            "format": {
-                                "textFormat": {
-                                    "bold": true,
-                                    "font-size": 20,
-                                    "padding": {
-                                        "top": 10,
-                                        "bottom": 10,
-                                        "left": 20,
-                                        "right": 20
+                },
+                conditionalFormats: {
+                    addConditionalFormatRule: {
+                        "rule": {
+                            "ranges": [
+                                {
+                                    "startRowIndex": 1,
+                                    "endRowIndex": 1,
+                                    "startColumnIndex": 1,
+                                    "endColumnIndex": 1
+                                }
+                            ],
+                            "booleanRule": {
+                                "condition": {
+                                    "type": "NOT_BLANK"
+                                },
+                                "format": {
+                                    "textFormat": {
+                                        "bold": true,
+                                        "font-size": 20,
+                                        "padding": {
+                                            "top": 10,
+                                            "bottom": 10,
+                                            "left": 20,
+                                            "right": 20
+                                        }
                                     }
                                 }
-                            }
-                        },
-                    },
-                    "rule": {
-                        "ranges": [
-                            {
-                                "startRowIndex": 9,
-                                "endRowIndex": 9,
-                                "startColumnIndex": 1,
-                                "endColumnIndex": 5
-                            }
-                        ],
-                        "booleanRule": {
-                            "condition": {
-                                "type": "NOT_BLANK"
                             },
-                            "format": {
-                                "textFormat": {
-                                    "foregroundColor": {
-                                        "blue": 1,
-                                        "alpha": 0.5
-                                    },
-                                    "bold": true
+                        },
+                        "rule": {
+                            "ranges": [
+                                {
+                                    "startRowIndex": 9,
+                                    "endRowIndex": 9,
+                                    "startColumnIndex": 1,
+                                    "endColumnIndex": 5
+                                }
+                            ],
+                            "booleanRule": {
+                                "condition": {
+                                    "type": "NOT_BLANK"
+                                },
+                                "format": {
+                                    "textFormat": {
+                                        "foregroundColor": {
+                                            "blue": 1,
+                                            "alpha": 0.5
+                                        },
+                                        "bold": true
+                                    }
                                 }
                             }
                         }
