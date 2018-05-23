@@ -165,15 +165,15 @@ var buildDoc = function (test) {
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
-            firstSheetId = response.result.sheet.properties.sheetId;
+            //firstSheetId = JSON.parse(response.result.sheet).properties.sheetId;
             var sheetVars = parseResults(test);
-            populateNewSheet(newSpreadsheetId, firstSheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
+            populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
     };
 
-    var populateNewSheet = function (spreadsheetId, firstSheetId, page_slug, url, show_url, date, count, version_id) {
+    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, count, version_id) {
         var params = {
             spreadsheetId: spreadsheetId
         };
