@@ -155,7 +155,7 @@ var buildDoc = function () {
                             date
                         ],
                         [
-                            version_count
+                            version_id
                         ],
                         [
                             version_id
