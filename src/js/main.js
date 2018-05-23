@@ -1,26 +1,26 @@
 // UI Scripts
 
-    // TABS
-    $(document).ready(function () {
-        $("div.tab-content").not("[data-tab=1]").addClass("hide"),
-            $(".tabs-nav li").first().addClass("active"),
-            $(".tabs-nav li").on("click", function () {
-                $(this).addClass("active"),
-                    $(".tabs-nav li").not(this).removeClass("active");
-                var a = $(this).attr("data-tab");
-                $("div[data-tab = " + a + "]").removeClass("hide"),
-                    $("div.tab-content").not("[data-tab=" + a + "]").addClass("hide")
-            }),
-            $("li[data-tab=all]").on("click", function () {
-                $(this).addClass("active"),
-                    $("div.tab-content").removeClass("hide")
-            });
-        $(".side-panel__trigger").on("click", function () {
-            $(this).toggleClass("active");
-            $(".side-panel").animate({ "width": "toggle" });
+// TABS
+$(document).ready(function () {
+    $("div.tab-content").not("[data-tab=1]").addClass("hide"),
+        $(".tabs-nav li").first().addClass("active"),
+        $(".tabs-nav li").on("click", function () {
+            $(this).addClass("active"),
+                $(".tabs-nav li").not(this).removeClass("active");
+            var a = $(this).attr("data-tab");
+            $("div[data-tab = " + a + "]").removeClass("hide"),
+                $("div.tab-content").not("[data-tab=" + a + "]").addClass("hide")
+        }),
+        $("li[data-tab=all]").on("click", function () {
+            $(this).addClass("active"),
+                $("div.tab-content").removeClass("hide")
         });
+    $(".side-panel__trigger").on("click", function () {
+        $(this).toggleClass("active");
+        $(".side-panel").animate({ "width": "toggle" });
     });
-    
+});
+
 
 // WEBAPP Scripts
 
@@ -30,9 +30,9 @@ var username = "social@lyntonweb.com", //email address for your account
     test = null,
     newSpreadsheetId = null,
     getDataClicked = false;
-    
 
-    
+
+
 // GET RAW SCREENSHOT TEST RESULTS
 var getResults = function () {
     var ssBaseUrl = "https://crossbrowsertesting.com/api/v3/screenshots/";
@@ -78,8 +78,6 @@ var getResults = function () {
             loader.removeClass("animate-loader");
             var test = JSON.parse(xhr.responseText);
             buildDoc(test);
-            console.log(test);
-            //parseResults(testData);
         } else {
             console.log("Something went wrong");
         }
@@ -99,8 +97,8 @@ var parseResultsOne = function (test) {
         tags = test.versions[0].tags;
 
     var results = $.makeArray(test.versions[0].results);
-    
-    var createArray = {
+
+    var testArray = {
         url,
         show_url,
         date,
@@ -108,23 +106,24 @@ var parseResultsOne = function (test) {
         version_id
     };
 
-    return createArray;
+    return testArray;
 }
 
-var parseResultsTwo = function (test) {
-    var count = test.version_count,
-        id = test.screenshot_test_id,
-        date = test.created_date,
-        url = test.url,
-        result_count = test.versions[0].result_count.successful,
-        result_total = test.versions[0].result_count.total,
-        version_id = test.versions[0].version_id,
-        show_url = test.versions[0].show_results_web_url,
-        tags = test.versions[0].tags;
+var parseResultsTwo = function (test, spreadsheetId) {
 
-    var results = $.makeArray(test.versions[0].results);
-
-    for (i=0, results.length; i < results.length; i++) {
+    var allResults = function() {
+        $.each(test.versions[0].results, function (key, value) {
+            setTimeout(function () {
+                populateResults(spreadsheetId, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
+            }, 3000);
+        }); 
+    };
+    
+    allResults();
+        
+    /*
+    var resultsArray = [{}];
+    for (i = 0, results.length; i < results.length; i++) {
         var result_id = results[i].result_id,
             result_os = results[i].os['name'],
             result_browser = results[i].browser['name'],
@@ -132,53 +131,69 @@ var parseResultsTwo = function (test) {
             result_tags = results[i].tags,
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
-        
-        var populateResults = function (spreadsheetId, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
-            var params = {
-                spreadsheetId: spreadsheetId
-            };
-            var formattedDate = date.split("T")[0];
-            var batchUpdateValuesRequestBody = {
-                valueInputOption: 'USER_ENTERED',
-                responseValueRenderOption: "FORMULA",
-                data: [
-                    {
-                        "majorDimension": "COLUMNS",
-                        "range": "A10:F",
-                        "values": [
-                            [
-                                "=HYPERLINK(\"" + result_url + "\", \"" + id + "\")"
-                            ],
-                            [
-                                "=T(\"" + os + "\")"
-                            ],
-                            [
-                                "=T(\"" + browser + "\")"
-                            ],
-                            [
-                                "=T(\"" + resolution + "\")"
-                            ],
-                            [
-                                "=T(\"" + tags + "\")"
-                            ],
-                            [
-                                "=HYPERLINK(\"" + live_url + "\", \"Start Live Test\" )"
-                            ]
-                        ]
-                    }
+
+        var resultsArray[i] = [{
+            result_id,
+            result_os,
+            result_browser,
+            result_resolution,
+            result_tags,
+            show_result,
+            launch_live
+        }];
+    } 
+
+    return resultsArray;*/
+
+};
+
+var populateResults = function (spreadsheetId, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
+    var params = {
+        spreadsheetId: spreadsheetId
+    };
+    var batchUpdateValuesRequestBody = {
+        valueInputOption: 'USER_ENTERED',
+        responseValueRenderOption: "FORMULA",
+        data: [
+            {
+                "majorDimension": "ROWS",
+                "range": "10:100",
+                "values": [
+                    [
+                        "=HYPERLINK(\"" + result_url + "\", \"" + result_id + "\")"
+                    ],
+                    [
+                        "=T(\"" + result_os + "\")"
+                    ],
+                    [
+                        "=T(\"" + result_browser + "\")"
+                    ],
+                    [
+                        "=T(\"" + result_resolution + "\")"
+                    ],
+                    [
+                        "=T(\"" + result_tags + "\")"
+                    ],
+                    [
+                        "=HYPERLINK(\"" + live_url + "\", \"Start Live Test\" )"
+                    ]
                 ]
             }
-        } 
-        populateResults(id, result_id, result_os, result_browser, result_tags, show_result, launch_live);     
-    }
-
+        ]
+    };
+    var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
+    request.then(function (response) {
+        console.log(response.result);
+    }, function (reason) {
+        console.error('error: ' + reason.result.error.message);
+    });
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
 var buildDoc = function (test) {
     var page_slug = $("input[name=page-slug]").val(),
         client_slug = $("input[name=client-slug]").val();
-    
+
     var createSheet = function (title) {
         var spreadsheetBody = {
             properties: {
@@ -224,7 +239,7 @@ var buildDoc = function (test) {
             //firstSheetId = JSON.parse(response.result.sheet).properties.sheetId;
             var sheetVars = parseResultsOne(test);
             populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
-            parseResultsTwo(test);
+            parseResultsTwo(test, newSpreadsheetId);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
@@ -247,7 +262,7 @@ var buildDoc = function (test) {
                             "=T(\"" + page_slug + "\")"
                         ],
                         [
-                            "=HYPERLINK(\"" + url + "\", \"" + spreadsheetId + "\")"
+                            "=HYPERLINK(\"" + url + "\", \"View Test\")"
                         ],
                         [
                             "=DATEVALUE(\"" + formattedDate + "\")"
@@ -293,12 +308,12 @@ var buildDoc = function (test) {
             console.error('error: ' + reason.result.error.message);
         });
     };
-    
+
     createSheet(client_slug + " QA Documentation", page_slug);
 }
 
 // START DOCUMENTATION HANDLER
-var startDoc = function() {
+var startDoc = function () {
     getResults();
 };
 
