@@ -85,7 +85,7 @@ var parseResults = function (testData) {
 
     var testObj = [{}];
     for (i = 0, results.length; i < results.length; i++) {
-        var resultsArray = null;
+        var resultsArray = [{}];
         var result_id = results[i].result_id,
             result_os = results[i].os['name'],
             result_browser = results[i].browser['name'],
