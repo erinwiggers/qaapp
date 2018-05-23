@@ -39,7 +39,8 @@ var getResults = function () {
     var testData = null;
     var test_id = $("input[name=test_id]").val(),
         version_id = $("input[name=version_id]").val(),
-        loader = $(".loader");
+        loader = $(".loader"),
+        loader_wrap = $(".loader__wrapper");
     var progress1 = $("<p>connected to server</p>"),
         progress2 = $("<p>request sent</p>"),
         progress3 = $("<p>processing...</p>"),
@@ -58,19 +59,19 @@ var getResults = function () {
             console.log("connected to server");
             loader.addClass("show-loader");
             loader.addClass("animate-loader");
-            loader.append(progress1);
+            loader_wrap.append(progress1);
         } else if (xhr.readyState == 2) {
             console.log("reqest sent");
             progress1.addClass("hide");
-            loader.append(progress2);
+            loader_wrap.append(progress2);
         } else if (xhr.readyState == 3) {
             console.log("processing request");
             progress2.addClass("hide");
-            loader.append(progress3);
+            loader_wrap.append(progress3);
         } else if (xhr.readyState == 4) {
             console.log("complete");
             progress3.addClass("hide");
-            loader.append(progress4);
+            loader_wrap.append(progress4);
             loader.removeClass("animate-loader");
             var testData = JSON.parse(xhr.responseText);
             console.log(testData);
