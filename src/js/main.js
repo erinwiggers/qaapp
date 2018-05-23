@@ -83,7 +83,7 @@ var parseResults = function (testData) {
     var results = $.makeArray(test.versions[0].results);
     var output = "";
 
-    var resultsArray = [{}];
+    var testObj = [{}];
     for (i = 0, results.length; i < results.length; i++) {
         var result_id = results[i].result_id,
             result_os = results[i].os['name'],
