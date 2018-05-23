@@ -156,7 +156,7 @@ var buildDoc = function (test) {
         var params = {
             spreadsheetId: spreadsheetId
         };
-        var formattedDate = date.split("T").first();
+        var formattedDate = date.split("T")[0];
         var batchUpdateValuesRequestBody = {
             valueInputOption: 'USER_ENTERED',
             responseValueRenderOption: "FORMULA",
