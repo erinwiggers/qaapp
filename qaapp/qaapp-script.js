@@ -179,7 +179,7 @@ var buildDoc = function (test) {
     var page_slug = $("input[name=page-slug]").val(),
         client_slug = $("input[name=client-slug]").val();
     
-    var createSheet = function (title, sheet_name) {
+    var createSheet = function (title) {
         var spreadsheetBody = {
             properties: {
                 "title": title
@@ -254,7 +254,7 @@ var buildDoc = function (test) {
             ],
             sheets: {
                 properties: {
-                    "title": sheet_name
+                    "title": page_slug
                 }/*,
                 conditionalFormats: {
                     "booleanRule": {
