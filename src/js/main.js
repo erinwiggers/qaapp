@@ -27,7 +27,8 @@
 // GLOBAL VARIABLES
 var username = "social@lyntonweb.com", //email address for your account
     password = "u0856709d93976a5", //authkey for your account
-    test = null;
+    test = null,
+    getDataClicked = false;
     
 
     
