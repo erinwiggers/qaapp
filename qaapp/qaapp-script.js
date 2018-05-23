@@ -146,7 +146,7 @@ var buildDoc = function (test) {
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
             var sheetVars = parseResults(test);
-            populateNewSheet(newSpreadsheetId, page_slug, sheetVars);
+            populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.version_count, sheetVars.version_id);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
@@ -157,29 +157,30 @@ var buildDoc = function (test) {
             spreadsheetId: spreadsheetId
         };
         var batchUpdateValuesRequestBody = {
-            valueInputOption: 'USER_ENTERED',
+            valueInputOption: 'RAW',
             data: [
                 {
                     "majorDimension": "ROWS",
                     "range": "A1:A6",
+                    "responseValueRenderOption": "FORMULA",
                     "values": [
                         [
-                            page_slug
+                            "=T(" + page_slug + ")"
                         ],
                         [
-                            "<a href='" + show_url + "'>" + spreadsheetId + "</a>"
+                            "=HYPERLINK(" + url + ", " + spreadsheetId + ")"
                         ],
                         [
-                            date
+                            "=DATEVALUE(" + date + ")"
                         ],
                         [
-                            version_count
+                            "=T(" + version_count + ")"
                         ],
                         [
-                            version_id
+                            "=T(" + version_id + ")"
                         ],
                         [
-                            "pass_percentage"
+                            "=T('pass_percentage')"
                         ]
                     ]
                 },
