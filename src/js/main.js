@@ -84,7 +84,7 @@ var parseResults = function (testData) {
     var output = "";
 
     var testObj = [{}];
-    results.each(function() {
+    $.each(results, function() {
         var resultsArray = [{}];
         var resultsArrayE = [{}];
         var result_id = results.result_id,
