@@ -156,7 +156,7 @@ var populateResults = function (spreadsheetId, result_id, result_os, result_brow
         responseValueRenderOption: "FORMULA",
         data: [
             {
-                "majorDimension": "ROWS",
+                "majorDimension": "COLUMNS",
                 "range": "10:100",
                 "values": [
                     [
