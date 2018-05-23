@@ -59,7 +59,7 @@ var getResults = function () {
             console.log("processing request");
         } else if (xhr.readyState == 4) {
             console.log("complete");
-            var testData = xhr.responseText;
+            testData = JSON.parse(xhr.responseText);
             parseResults(testData);
         } else {
             console.log("Something went wrong");
@@ -69,7 +69,7 @@ var getResults = function () {
 
 // PARSE SCREENSHOT TEST RESULTS
 var parseResults = function (testData) {
-    var test = JSON.parse(testData);
+    var test = testData;
     var version_count = test.version_count,
         id = test.screenshot_test_id,
         date = test.created_date,
