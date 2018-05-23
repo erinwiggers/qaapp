@@ -111,7 +111,7 @@ var parseResultsOne = function (test) {
     return createArray;
 }
 
-var populateResults = function (test) {
+var parseResultsTwo = function (test) {
     var count = test.version_count,
         id = test.screenshot_test_id,
         date = test.created_date,
@@ -224,7 +224,7 @@ var buildDoc = function (test) {
             //firstSheetId = JSON.parse(response.result.sheet).properties.sheetId;
             var sheetVars = parseResultsOne(test);
             populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
-            populateResults(test);
+            parseResultsTwo(test);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
