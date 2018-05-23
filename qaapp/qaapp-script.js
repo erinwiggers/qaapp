@@ -101,7 +101,7 @@ var parseResults = function (testData) {
         url,
         show_url,
         date, 
-        result_count, 
+        version_count, 
         version_id
     };
     
@@ -129,13 +129,14 @@ var buildDoc = function () {
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
-            populateNewSheet(newSpreadsheetId, parseResults());
+            var sheetVars = parseResults();
+            populateNewSheet(newSpreadsheetId, page_slug, sheetVars);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
     };
 
-    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, result_count, version_id) {
+    var populateNewSheet = function (spreadsheetId, page_slug, url, show_url, date, version_count, version_id) {
         var params = {
             spreadsheetId: spreadsheetId
         };
@@ -150,13 +151,13 @@ var buildDoc = function () {
                             page_slug
                         ],
                         [
-                            spreadsheetId
+                            "<a href='" + show_url + "'>" + spreadsheetId + "</a>"
                         ],
                         [
                             date
                         ],
                         [
-                            version_id
+                            version_count
                         ],
                         [
                             version_id
