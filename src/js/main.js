@@ -155,17 +155,18 @@ var buildDoc = function (test) {
                             "textFormat": {
                                 "bold": true,
                                 "fontSize": 20
-                            },
-                            "ranges": [
-                                {
-                                    "endColumnIndex": 1,
-                                    "endRowIndex": 1,
-                                    "startColumnIndex": 1,
-                                    "startRowIndex": 1
-                                }
-                            ]
+                            }
                         }
-                    }
+                    },
+                    "ranges": [
+                        {
+                            "endColumnIndex": 1,
+                            "endRowIndex": 1,
+                            "startColumnIndex": 1,
+                            "startRowIndex": 1,
+                            "sheetId": 0
+                        }
+                    ]
                 }
             }
         };
