@@ -139,6 +139,33 @@ var buildDoc = function (test) {
             sheets: {
                 properties: {
                     "title": sheet_name
+                },
+                conditionalFormats: {
+                    "booleanRule": {
+                        "condition": {
+                            "type": "NOT_BLANK"
+                        },
+                        "format": {
+                            "padding": {
+                                "bottom": 10,
+                                "left": 20,
+                                "right": 20,
+                                "top": 10
+                            },
+                            "textFormat": {
+                                "bold": true,
+                                "fontSize": 20
+                            },
+                            "ranges": [
+                                {
+                                    "endColumnIndex": 1,
+                                    "endRowIndex": 1,
+                                    "startColumnIndex": 1,
+                                    "startRowIndex": 1
+                                }
+                            ]
+                        }
+                    }
                 }
             }
         };
@@ -160,33 +187,6 @@ var buildDoc = function (test) {
         var batchUpdateValuesRequestBody = {
             valueInputOption: 'USER_ENTERED',
             responseValueRenderOption: "FORMULA",
-            conditionalFormats: {
-                "booleanRule": {
-                    "condition": {
-                        "type": "NOT_BLANK"
-                    },
-                    "format": {
-                        "padding": {
-                            "bottom": 10,
-                            "left": 20,
-                            "right": 20,
-                            "top": 10
-                        },
-                        "textFormat": {
-                            "bold": true,
-                            "fontSize": 20
-                        },
-                        "ranges": [
-                            {
-                                "endColumnIndex": 1,
-                                "endRowIndex": 1,
-                                "startColumnIndex": 1,
-                                "startRowIndex": 1
-                            }
-                        ]
-                    }
-                }
-            },
             data: [
                 {
                     "majorDimension": "ROWS",
