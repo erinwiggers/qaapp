@@ -158,11 +158,11 @@ var buildDoc = function (test) {
         };
         var batchUpdateValuesRequestBody = {
             valueInputOption: 'RAW',
+            responseValueRenderOption: "FORMULA",
             data: [
                 {
                     "majorDimension": "ROWS",
                     "range": "A1:A6",
-                    "responseValueRenderOption": "FORMULA",
                     "values": [
                         [
                             "=T(" + page_slug + ")"
