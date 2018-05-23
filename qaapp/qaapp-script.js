@@ -93,7 +93,7 @@ var parseResults = function (testData) {
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
         var resultsArray = [
-            { "result_id": reult_id },
+            { "result_id": result_id },
             { "result_os": result_os },
             { "result_browser": result_broswer },
             { "result_resolution": result_resolution },
