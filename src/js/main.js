@@ -207,7 +207,7 @@ var buildDoc = function (test) {
                     ]
                 }
             ],
-            addConditionalFormatRule: {
+            conditionalFormats: {
                 "index": 0,
                 "rule": {
                     "ranges": [
