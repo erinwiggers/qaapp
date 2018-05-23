@@ -160,8 +160,8 @@ var buildDoc = function (test) {
         var batchUpdateValuesRequestBody = {
             valueInputOption: 'USER_ENTERED',
             responseValueRenderOption: "FORMULA",
-            conditionalFormats: [
-                {
+            addConditionalFormatRule: {
+                "rule": {
                     "ranges": [
                         {
                             "startRowIndex": 1,
@@ -188,7 +188,7 @@ var buildDoc = function (test) {
                         }
                     }
                 },
-                {
+                "rule": {
                     "ranges": [
                         {
                             "startRowIndex": 9,
@@ -212,7 +212,7 @@ var buildDoc = function (test) {
                         }
                     }
                 }
-            ],
+            },
             data: [
                 {
                     "majorDimension": "ROWS",
