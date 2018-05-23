@@ -84,7 +84,8 @@ var parseResults = function (testData) {
     var output = "";
 
     var testObj = [{}];
-    for (i = 0, results.length; i < results.length; i++) {
+    for (i=0, results.length; i < results.length; i++) {
+        var resultsArray[i] = [{}];
         var result_id = results[i].result_id,
             result_os = results[i].os['name'],
             result_browser = results[i].browser['name'],
@@ -92,7 +93,7 @@ var parseResults = function (testData) {
             result_tags = results[i].tags,
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
-        var resultsArray[i] = {
+        resultsArray[i] = {
             "result_id": result_id,
             "result_os": result_os,
             "result_browser": result_browser,
@@ -101,7 +102,7 @@ var parseResults = function (testData) {
             "show_result": show_result,
             "launch_live": launch_live
         };
-        var testObj = $.extend({}, testObj, resultsArray[i]);
+        var testObj = $.extend({}, resultsArray, resultsArray[i]);
     }
     console.log(testObj);
 };
