@@ -85,6 +85,7 @@ var parseResults = function (testData) {
 
     var testObj = [{}];
     for (i = 0, results.length; i < results.length; i++) {
+        var resultsArray = null;
         var result_id = results[i].result_id,
             result_os = results[i].os['name'],
             result_browser = results[i].browser['name'],
@@ -92,15 +93,15 @@ var parseResults = function (testData) {
             result_tags = results[i].tags,
             show_result = results[i].show_result_web_url,
             launch_live = results[i].launch_live_test_url;
-        var resultsArray[i] = [
-            { "result_id": result_id },
-            { "result_os": result_os },
-            { "result_browser": result_browser },
-            { "result_resolution": result_resolution },
-            { "result_tags": result_tags },
-            { "show_result": show_result },
-            { "launch_live": launch_live }
-        ];
+        var resultsArray[i] = {
+            "result_id": result_id,
+            "result_os": result_os,
+            "result_browser": result_browser,
+            "result_resolution": result_resolution,
+            "result_tags": result_tags,
+            "show_result": show_result,
+            "launch_live": launch_live
+        };
         var testObj = $.extend({}, resultsArray, resultsArray[i]);
     }
     console.log(testObj);
