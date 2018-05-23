@@ -73,7 +73,7 @@ var getResults = function () {
             progress3.addClass("hide");
             loader_wrap.append(progress4);
             loader.removeClass("animate-loader");
-            var testData = JSON.parse(xhr.responseText);
+            var test = JSON.parse(xhr.responseText);
             console.log(testData);
             //parseResults(testData);
         } else {
@@ -83,9 +83,8 @@ var getResults = function () {
 };
 
 // PARSE SCREENSHOT TEST RESULTS
-var parseResults = function (testData) {
-    var test = testData;
-    var version_count = test.version_count,
+var parseResults = function (test) {
+    var count = test.version_count,
         id = test.screenshot_test_id,
         date = test.created_date,
         url = test.url,
@@ -115,7 +114,7 @@ var parseResults = function (testData) {
         url,
         show_url,
         date, 
-        version_count, 
+        count, 
         version_id
     };
     
