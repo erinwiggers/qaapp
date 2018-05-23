@@ -27,7 +27,8 @@
 // GLOBAL VARIABLES
 var username = "social@lyntonweb.com", //email address for your account
     password = "u0856709d93976a5", //authkey for your account
-    getDataClicked = false;
+    test = null;
+    
 
     
 // GET RAW SCREENSHOT TEST RESULTS
@@ -74,7 +75,8 @@ var getResults = function () {
             loader_wrap.append(progress4);
             loader.removeClass("animate-loader");
             var test = JSON.parse(xhr.responseText);
-            console.log(testData);
+            buildDoc(test);
+            console.log(test);
             //parseResults(testData);
         } else {
             console.log("Something went wrong");
@@ -123,7 +125,7 @@ var parseResults = function (test) {
 };
 
 // CREATE SPREADSHEET AND POPULATE WITH TEST DATA
-var buildDoc = function () {
+var buildDoc = function (test) {
     var newSpreadsheetId = null;
     var page_slug = $("input[name=page-slug]").val(),
         client_slug = $("input[name=client-slug]").val();
@@ -142,7 +144,7 @@ var buildDoc = function () {
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
             newSpreadsheetId = response.result.spreadsheetId;
-            var sheetVars = parseResults();
+            var sheetVars = parseResults(test);
             populateNewSheet(newSpreadsheetId, page_slug, sheetVars);
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
@@ -217,7 +219,6 @@ var buildDoc = function () {
 // START DOCUMENTATION HANDLER
 var startDoc = function() {
     getResults();
-    buildDoc();
 };
 
 
