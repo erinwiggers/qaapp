@@ -84,17 +84,15 @@ var parseResults = function (testData) {
     var output = "";
 
     var testObj = [{}];
-    $.each(results, function() {
-        var resultsArray = [{}];
-        var resultsArrayE = [{}];
-        var result_id = results.result_id,
-            result_os = results.os.name,
-            result_browser = results.browser.name,
-            result_resolution = results.resolution.name,
-            result_tags = results.tags,
-            show_result = results.show_result_web_url,
-            launch_live = results.launch_live_test_url;
-        resultsArray = {
+    for (i = 0, results.length; i < results.length; i++) {
+        var result_id = results[i].result_id,
+            result_os = results[i].os['name'],
+            result_browser = results[i].browser['name'],
+            result_resolution = results[i].resolution['name'],
+            result_tags = results[i].tags,
+            show_result = results[i].show_result_web_url,
+            launch_live = results[i].launch_live_test_url;
+        var resultsArray[i] = {
             "result_id": result_id,
             "result_os": result_os,
             "result_browser": result_browser,
@@ -103,8 +101,8 @@ var parseResults = function (testData) {
             "show_result": show_result,
             "launch_live": launch_live
         };
-        var testObj = $.extend({}, resultsArrayE, resultsArray);
-    });
+        var testObj = $.extend({}, testObj, resultsArray[i]);
+    }
     console.log(testObj);
 };
 
