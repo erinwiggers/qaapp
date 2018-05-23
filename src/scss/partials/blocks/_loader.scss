@@ -1,0 +1,56 @@
+
+.loader {
+	position: absolute;
+	top: 1em;
+	right: 2em;
+	transform: translate(-50%,-50%);
+	width: 200px;
+	height: 200px;
+	border: 4px solid transparent;
+	border-bottom: 4px solid map-get($palette, gamma);
+	border-top: 4px solid map-get($palette, delta);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 1s ease;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        bottom: 20px;
+        right: 20px;
+        border: 4px solid transparent;
+        border-bottom: 4px solid map-get($palette, alpha);
+        border-top: 4px solid map-get($palette, beta);
+        border-radius: 50%; 
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        bottom: 50px;
+        right: 50px;
+        border: 4px solid transparent;
+        border-bottom: 4px solid #ffffff;
+        border-top: 4px solid #be90d4;
+        border-radius: 50%;
+    }
+}
+
+.animate-loader {
+    animation: loaderanimation 3s linear infinite;
+    opacity: 1;
+}
+
+@keyframes loaderanimation {
+
+	0%{
+		transform: rotate(0deg);
+
+	}
+	100%{
+		transform: rotate(360deg);
+	}
+
+}

@@ -1,6 +1,6 @@
 // UI Scripts
+
     // TABS
-    
     $(document).ready(function () {
         $("div.tab-content").not("[data-tab=1]").addClass("hide"),
             $(".tabs-nav li").first().addClass("active"),
@@ -20,8 +20,6 @@
             $(".side-panel").animate({ "width": "toggle" });
         });
     });
-
-    
     
 
 // WEBAPP Scripts
@@ -40,7 +38,8 @@ var getResults = function () {
     var basicAuth = btoa(unescape(encodeURIComponent(username + ":" + password)));
     var testData = null;
     var test_id = $("input[name=test_id]").val(),
-        version_id = $("input[name=version_id]").val();
+        version_id = $("input[name=version_id]").val(),
+        loader = $(".loader");
 
     var xhr = new XMLHttpRequest();
     if (version_id != null) {
@@ -53,12 +52,20 @@ var getResults = function () {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 1) {
             console.log("connected to server");
+            loader.addClass("animate-loader");
+            loader.append("<p>connected to server</p>");
         } else if (xhr.readyState == 2) {
             console.log("reqest sent");
+            loader.remove("<p>connected to server</p>");
+            loader.append("<p>request sent</p>");
         } else if (xhr.readyState == 3) {
             console.log("processing request");
+            loader.remove("<p>request sent</p>");
+            loader.append("<p>processing...</p>");
         } else if (xhr.readyState == 4) {
             console.log("complete");
+            loader.remove("<p>processing...</p>");
+            loader.removeClass("animate-loader");
             testData = JSON.parse(xhr.responseText);
             console.log(testData);
             //parseResults(testData);
