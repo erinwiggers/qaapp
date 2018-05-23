@@ -259,8 +259,8 @@ var buildDoc = function (test) {
                             "sheetId": firstSheetId
                         }
                     ]
-                }
-            } */
+                }*/
+            } 
         };
         var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
         request.then(function (response) {
