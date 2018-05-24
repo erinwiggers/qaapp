@@ -197,7 +197,7 @@ var populateResults = function (spreadsheetId, result_id, result_os, result_brow
     };
     var valueRangeBody = {
         "majorDimension": "COLUMNS",
-        "range": "1:500",
+        "range": "10:500",
         "values": [
             [
                 "=HYPERLINK(\"" + result_url + "\", \"" + result_id + "\")"
