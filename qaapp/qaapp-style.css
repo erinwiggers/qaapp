@@ -1415,7 +1415,7 @@ body { position: relative; z-index: 1; }
 
 .ninja { color: white; border: 3px solid white; border-radius: 1000px; font-size: 1.5em; padding: .5em .6em; cursor: pointer; }
 
-.compare__wrapper { width: 48%; margin: .5%; height: 1000px; float: left; overflow: scroll; }
+.compare__wrapper { width: 48%; margin: .5%; height: 1000px; float: left; overflow: scroll; position: relative; }
 
 .compare iframe { width: 100%; height: 100%; z-index: 1; }
 
