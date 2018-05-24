@@ -14,21 +14,14 @@
 
 <script>
     $(document).ready(function () {
-        var reader = new FileReader(),
-            file = localStorage.getItem("file"),
-            src = null;
-        var read = function(data) {
-            reader.readAsDataURL(data);
-        };
+        var src = localStorage.getItem("image");
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
             $("#pageFrame").attr("src", url);
         };
         var getImgSrc = function () {
-            $("#imageFrame").attr("src", read(file));
-        }
-        //reader.onload = read(file);
-        console.log(file);
+            $("#imageFrame").attr("src", src);
+        };
         getUrlSrc();
         getImgSrc();
         $('iframe').each(function () {

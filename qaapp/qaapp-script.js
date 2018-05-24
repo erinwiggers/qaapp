@@ -193,6 +193,10 @@ var parseResultsTwo = function (test, spreadsheetId) {
         var total_results = results.length;
         $.each(test.versions[0].results, function (key, value) {
             populateResults(spreadsheetId, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
+            if (key == 8) {
+                var screenshot_image = value.images.chromeless;
+                localStorage.setItem("image", screenshot_image);
+            }
             if (key == (total_results - 1)) {
                 $("#results").append("<p>Populating data from " + $("input[name=page-slug]").val() + " Test...</p>");
             }
