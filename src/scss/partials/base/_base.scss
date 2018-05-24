@@ -549,30 +549,30 @@ pre {
 }
 
 .text:nth-child(5n + 1) {
-  stroke: lighten(map-get($palette, alpha), 15%);
+  stroke: lighten(map-get($palette, alpha), 35%);
   -webkit-animation-delay: -2s;
   animation-delay: -2s;
 }
 .text:nth-child(5n + 2) {
-  stroke: lighten(map-get($palette, beta), 15%);
+  stroke: lighten(map-get($palette, beta), 35%);
   -webkit-animation-delay: -4s;
   animation-delay: -4s;
 }
 
 .text:nth-child(5n + 3) {
-  stroke: lighten(map-get($palette, delta), 15%);
+  stroke: lighten(map-get($palette, delta), 35%);
   -webkit-animation-delay: -6s;
   animation-delay: -6s;
 }
 
 .text:nth-child(5n + 4) {
-  stroke: lighten(map-get($palette, gamma), 15%);
+  stroke: lighten(map-get($palette, gamma), 35%);
   -webkit-animation-delay: -8s;
   animation-delay: -8s;
 }
 
 .text:nth-child(5n + 5) {
-  stroke: lighten(map-get($palette, alpha), 15%);
+  stroke: lighten(map-get($palette, alpha), 35%);
   -webkit-animation-delay: -10s;
   animation-delay: -10s;
 }
@@ -600,7 +600,7 @@ html, body {
   text-transform: uppercase;
   margin: 0;
   position: absolute;
-  bottom: -300px;
+  top: -7%;
   left: 0;
   height: 200px;
   width: 100%;
