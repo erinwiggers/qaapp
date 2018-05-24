@@ -1,21 +1,8 @@
 $(document).ready(function (e) {
     $("#uploadimage").on('submit', (function (e) {
+        var url = $("input[name=compUrl]").val();
         e.preventDefault();
-        $("#message").empty();
-        $('#loading').show();
-        $.ajax({
-            url: "/qaapp/ajax_php_file.php", // Url to which the request is send
-            type: "POST",             // Type of request to be send, called as method
-            data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-            contentType: "application/json",       // The content type used when sending data to the server.
-            cache: false,             // To unable request pages to be cached
-            processData: false,        // To send DOMDocument or non processed data file it is set to false
-            success: function (data)   // A function to be called if request succeeds
-            {
-                $('#loading').hide();
-                $("#message").html(data);
-            }
-        });
+        $(window).open("/compare.html?url=" + url);
     }));
 
     // Function to preview image after validation
@@ -34,6 +21,7 @@ $(document).ready(function (e) {
                 var reader = new FileReader();
                 reader.onload = imageIsLoaded;
                 reader.readAsDataURL(this.files[0]);
+                localStorage.setItem("file", this.files[0]);
             }
         });
     });
