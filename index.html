@@ -48,7 +48,7 @@
                         <i class="icon-camera fas fa-camera-retro"></i>
                     </li>
                     <li data-tab="2">
-                        <i class="icon-mouse fas fa-mouse-pointer"></i>
+                        <i class="icon-images fas fa-images"></i>
                     </li>
                     <li data-tab="3">
                         <i class="icon-clipboard fas fa-clipboard-check"></i>
@@ -56,19 +56,6 @@
                 </ul>
             </nav>
             <div class="tab-container">
-                <div class="tab-content" data-tab="1">
-                    <div class="padded-section padded-section--small padded-section--bottom">
-                        <h4>Screenshot Tests</h4>
-                        <hr>
-                        <p>run a test with standard LW parameters</p>
-                    </div>
-                    <form class="simple-form">
-                        <div id="screenshot-form" class="form-field">
-                            <input type="text" id="url" name="url" style="width:400px" value="enter URL">
-                        </div>
-                    </form>
-                    <button class="button" onclick="runNewTest()">Run Screenshot Test</button>
-                </div>
                 <div class="tab-content" data-tab="2">
                     <div class="padded-section padded-section--small padded-section--bottom">
                         <h4>PSD Compare</h4>
@@ -83,6 +70,19 @@
                         </div>
                         <button class="button button--beta" onclick="compare();">Compare</button>
                     </div>
+                </div>
+                <div class="tab-content" data-tab="1">
+                    <div class="padded-section padded-section--small padded-section--bottom">
+                        <h4>Screenshot Tests</h4>
+                        <hr>
+                        <p>run a test with standard LW parameters</p>
+                    </div>
+                    <form class="simple-form">
+                        <div id="screenshot-form" class="form-field">
+                            <input type="text" id="url" name="url" style="width:400px" value="enter URL">
+                        </div>
+                    </form>
+                    <button class="button" onclick="runNewTest()">Run Screenshot Test</button>
                 </div>
                 <div class="tab-content" data-tab="3">
                     <div class="padded-section padded-section--small padded-section--bottom">
