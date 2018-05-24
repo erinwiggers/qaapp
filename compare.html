@@ -17,16 +17,15 @@
         var reader = new FileReader(),
             file = localStorage.getItem("file"),
             src = null;
-        reader.addEventListener("loadend", function () {
-            var src = reader.readAsDataURL(reader.result);
-        });
-        console.log(src);
+        var read = function(data) {
+            reader.readAsDataURL(data);
+        };
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
             $("#pageFrame").attr("src", url);
         };
         var getImgSrc = function () {
-            $("#imageFrame").attr("src", src);
+            $("#imageFrame").attr("src", read(file));
         }
         getUrlSrc();
         getImgSrc();
