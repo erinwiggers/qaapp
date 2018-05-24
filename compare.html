@@ -18,6 +18,7 @@
             file = localStorage.getItem("file"),
             src = null;
         var read = function(data) {
+            reader.onload = processFile(data);
             reader.readAsDataURL(data);
         };
         var getUrlSrc = function () {
