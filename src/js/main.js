@@ -34,21 +34,6 @@ $(document).ready(function () {
     $(".close").on("click", function () {
         $(".side-panel").animate({ "width": "toggle" });
     });
-    $('#uploadbox').singleupload({
-        action: 'do_upload.php',
-        inputId: 'singleupload_input',
-        onError: function (code) {
-            console.debug('error code ' + res.code);
-        },
-        onSuccess: function (url, data) {
-            $('#return_url_text').val(url);
-            $(".loader").removeClass("show-loader");
-        },
-        onProgress: function(loaded, total) {
-            $(".loader").addClass("show-loader");
-            $(".loader").addClass("animate-loader");
-        }
-    });
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -64,6 +49,13 @@ var getUrlParameter = function getUrlParameter(sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
+};
+
+var compare = function() {
+    var url = $("input[name=compare_url]").val(),
+        imgSrc = $("input[name=drive_id]").val();
+    localStorage.setItem("image_source", imgSrc);
+    window.open("compare.html?url=" + url);
 };
 
  
