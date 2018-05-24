@@ -50,8 +50,9 @@
                     $("#results").append("<p>Processing...</p>");
                 } else if (xhr.readyState == 4) {
                     $("#results").append("<p>Success! Image Uploaded</p><br>");
-                    var test = JSON.parse(xhr.responseText);
-                    buildDoc(test);
+                    var results = JSON.parse(xhr.responseText);
+                    return results;
+                    console.log(results);
                 } else {
                     console.log("Something went wrong");
                 }
