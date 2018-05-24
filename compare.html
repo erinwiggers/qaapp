@@ -21,9 +21,13 @@
         };
         var getImgSrc = function () {
             $("#pageFrame").attr("src", imageSrc);
-        };
+            $("#pageFrame").reload();
+        }
         getUrlSrc();
         getImgSrc();
+        $('iframe').each(function () {
+            this.contentWindow.location.reload(true);
+        });
     });
 </script>
 
