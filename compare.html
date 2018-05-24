@@ -17,7 +17,6 @@
         var reader = new FileReader(),
             file = localStorage.getItem("file"),
             src = null;
-        reader.onload = read(file);
         var read = function(data) {
             reader.readAsDataURL(data);
         };
@@ -26,8 +25,9 @@
             $("#pageFrame").attr("src", url);
         };
         var getImgSrc = function () {
-            $("#imageFrame").attr("src", read(file));
+            $("#imageFrame").attr("src", read());
         }
+        reader.onload = read(file);
         getUrlSrc();
         getImgSrc();
         $('iframe').each(function () {
