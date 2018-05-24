@@ -39,7 +39,8 @@
             var xhr = new XMLHttpRequest();
             xhr.addEventListener("load", function (ev) {
                 $this.html('');
-                var res = eval("(" + ev.target.responseText + ")");
+                var res = ev.target.responseText;
+                console.log(res);
 
                 if (res.code != 0) {
                     settings.onError(res.code);
