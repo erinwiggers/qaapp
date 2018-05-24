@@ -14,14 +14,23 @@
 
 <script>
     $(document).ready(function () {
-        var imageSrc = localStorage.getItem("image");
+        var imageSrc = localStorage.getItem("image"); 
+        var getUrlSrc = function () {
+            var url = getUrlParameter("url");
+            $("#imageFrame").attr("src", url);
+        };
+        var getImgSrc = function () {
+            $("#pageFrame").attr("src", imageSrc);
+        };
+        getUrlSrc();
+        getImgSrc();
     });
 </script>
 
 <body>
     <div class="compare">
-        <iframe src="getUrlSrc()"></iframe>
-        <iframe src="getImageSrc()"></iframe>
+        <iframe id="imageFrame" src=""></iframe>
+        <iframe id="pageFrame" src=""></iframe>
     </div>
     
 </body>

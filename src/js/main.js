@@ -51,14 +51,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-var getUrlSrc = function() {
-    getUrlParameter("url");
-};
-
-var getImgSrc = function () {
-    return imageSrc;
-};
-
  
 // WEBAPP Scripts
 
