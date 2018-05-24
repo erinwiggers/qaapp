@@ -96,6 +96,10 @@ $button-colors: (
         text:               white,
         border:             map-get($palette, beta)
     ),
+    delta: (
+        text:               white,
+        border:             map-get($palette, delta)
+    ),
     light: (
         text:               white,
         border:             map-get($palette, gamma)

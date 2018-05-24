@@ -1,6 +1,22 @@
+////////////////////////////////////////////////////////////////
+// TABLE OF CONTENTS
+    // UI Scripts - general functions not related to core app
+    // WEBAPP Scripts
+        // global variables
+        // FUNCTIONS
+            // Take Screenshot Test
+            // Get Test Results
+            // Parse Results for Test Variables
+            // Parse Results for Individual Result Variables
+            // Pass Results to Google Sheets
+            // Create New Google Sheet
+            // Handle Clicks
+            // Handle Google Sign In
+////////////////////////////////////////////////////////////////
+
 // UI Scripts
 
-// TABS
+// TABS : SIDE PANEL CLOSE
 $(document).ready(function () {
     $("div.tab-content").not("[data-tab=1]").addClass("hide"),
         $(".tabs-nav li").first().addClass("active"),
@@ -15,8 +31,7 @@ $(document).ready(function () {
             $(this).addClass("active"),
                 $("div.tab-content").removeClass("hide")
         });
-    $(".side-panel__trigger").on("click", function () {
-        $(this).toggleClass("active");
+    $(".close").on("click", function () {
         $(".side-panel").animate({ "width": "toggle" });
     });
 });
@@ -29,9 +44,69 @@ var username = "social@lyntonweb.com", //email address for your account
     password = "u0856709d93976a5", //authkey for your account
     test = null,
     newSpreadsheetId = null,
+    newSpreadsheetUrl = null,
     getDataClicked = false;
 
+// TAKE STANDARD SCREENSHOT TEST
+var ScreenshotTestApi = function(username, password) {
+    this.baseUrl = "https://" + username + ":" + password + "@crossbrowsertesting.com/api/v3/screenshots";
+    this.basicAuth = btoa(unescape(encodeURIComponent(username + ":" + password)));
+    this.currentTest = null;
+    this.allBrowsers = [];
+    this.callApi = function (url, method, params, callback) {
+        var self = this;
+        $.ajax({
+            type: method,
+            url: url,
+            data: params,
+            dataType: "json",
+            async: false,
+            beforeSend: function (jqXHR) {
+                jqXHR.setRequestHeader('Authorization', "Basic " + self.basicAuth);
+            },
+            success: function (data) {
+                callback(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+                throw "Failed: " + textStatus
+            }
+        });
+    };
+    this.startNewTest = function (params, callback) {
+        var self = this;
+        self.callApi(this.baseUrl, "POST", params, function (data) {
+            self.log('new test started successfully', data)
+            self.currentTest = data;
+            $("#results").append("<div>Success! Test completed</div>");
+            callback();
+        });
+    };
+    this.getTestId = function () {
+        return this.currentTest.screenshot_test_id;
+    };
+    this.log = function (text) {
+        if (window.console) console.log(text);
+    };
+};
 
+var runNewTest = function() {
+    $(".side-panel").animate({ "width": "toggle" });
+    $("#results").html("<p>Running Screenshot Test on " + $("input[name=url]").val() + "</p>");
+    var screenshot = new ScreenshotTestApi(username, password),
+        resultsQuery = "?type=fullpage&size=small",
+        params = {
+            url: $("input[name=url]").val(),
+            browser_list_name: "lw_custom"
+        };
+    screenshot.startNewTest(params, function () {
+        $("#results").append("<p>New Test ID: <strong><span id='test_id'>" + screenshot.getTestId() + "</p><strong>");
+        $("#results").append("<br><br><p><a class='button button--delta' href='https://app.crossbrowsertesting.com/screenshots/" + screenshot.getTestId() + resultsQuery + "' target='_blank'>View Test on CBT</a></p>");
+        $("#results").append("<br><br><button class='button' type='button' onclick='location.href=location.href'>Start Over</button>");
+    });
+};
 
 // GET RAW SCREENSHOT TEST RESULTS
 var getResults = function () {
@@ -44,10 +119,6 @@ var getResults = function () {
         version_id = $("input[name=version_id]").val(),
         loader = $(".loader"),
         loader_wrap = $(".loader__wrapper");
-    var progress1 = $("<p>connected to server</p>"),
-        progress2 = $("<p>request sent</p>"),
-        progress3 = $("<p>processing...</p>"),
-        progress4 = $("<p>complete!</p>");
 
     var xhr = new XMLHttpRequest();
     if (version_id != null) {
@@ -59,23 +130,16 @@ var getResults = function () {
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 1) {
-            console.log("connected to server");
+            console.log("reqest initiated");
+        } else if (xhr.readyState == 2) {
+            $(".side-panel").animate({ "width": "toggle" });
+            $("#results").html("<h4>Getting test data from CrossBrowserTesting.com</h4>");
             loader.addClass("show-loader");
             loader.addClass("animate-loader");
-            loader_wrap.append(progress1);
-        } else if (xhr.readyState == 2) {
-            console.log("reqest sent");
-            progress1.addClass("hide");
-            loader_wrap.append(progress2);
         } else if (xhr.readyState == 3) {
-            console.log("processing request");
-            progress2.addClass("hide");
-            loader_wrap.append(progress3);
+            $("#results").append("<p>Processing...</p>");
         } else if (xhr.readyState == 4) {
-            console.log("complete");
-            progress3.addClass("hide");
-            loader_wrap.append(progress4);
-            loader.removeClass("animate-loader");
+            $("#results").append("<p>Success! Data is now ready for transfer to Sheets</p><br>");
             var test = JSON.parse(xhr.responseText);
             buildDoc(test);
         } else {
@@ -84,7 +148,7 @@ var getResults = function () {
     };
 };
 
-// PARSE SCREENSHOT TEST RESULTS
+// PARSE SCREENSHOT TEST RESULTS -- GET TEST VARIABLES
 var parseResultsOne = function (test) {
     var count = test.version_count,
         id = test.screenshot_test_id,
@@ -97,7 +161,6 @@ var parseResultsOne = function (test) {
         tags = test.versions[0].tags;
 
     var results = $.makeArray(test.versions[0].results);
-
     var testArray = {
         url,
         show_url,
@@ -105,49 +168,25 @@ var parseResultsOne = function (test) {
         count,
         version_id
     };
-
     return testArray;
 }
 
+// PARSE SCREENSHOT TEST RESULTS -- GET RESULTS VARIABLES
 var parseResultsTwo = function (test, spreadsheetId) {
-
-    var allResults = function() {
+    var allResults = function () {
         $.each(test.versions[0].results, function (key, value) {
-            var range = (10 + (1 * 1++)) + ":100";
+            var index = 1;
+            var loop_index = index++;
+            var range = (10 + (1 * loop_index)) + ":100";
             setTimeout(function () {
                 populateResults(spreadsheetId, range, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
             }, 3000);
-        }); 
+        });
     };
-    
-    allResults();
-        
-    /*
-    var resultsArray = [{}];
-    for (i = 0, results.length; i < results.length; i++) {
-        var result_id = results[i].result_id,
-            result_os = results[i].os['name'],
-            result_browser = results[i].browser['name'],
-            result_resolution = results[i].resolution['name'],
-            result_tags = results[i].tags,
-            show_result = results[i].show_result_web_url,
-            launch_live = results[i].launch_live_test_url;
-
-        var resultsArray[i] = [{
-            result_id,
-            result_os,
-            result_browser,
-            result_resolution,
-            result_tags,
-            show_result,
-            launch_live
-        }];
-    } 
-
-    return resultsArray;*/
-
+    //allResults();
 };
 
+// PASS RESULTS TO GOOGLE SHEET
 var populateResults = function (spreadsheetId, range, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
     var params = {
         spreadsheetId: spreadsheetId
@@ -184,13 +223,14 @@ var populateResults = function (spreadsheetId, range, result_id, result_os, resu
     };
     var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
     request.then(function (response) {
-        console.log(response.result);
+        $("#results").append("<strong>Your documentation is ready!</strong>");
+        $("#results").append("<button href='" + newSpreadsheetUrl + "' class='button'>View Spreadsheet</button>");
     }, function (reason) {
         console.error('error: ' + reason.result.error.message);
     });
 };
 
-// CREATE SPREADSHEET AND POPULATE WITH TEST DATA
+// CREATE SPREADSHEET AND POPULATE WITH TEST VARIABLES
 var buildDoc = function (test) {
     var page_slug = $("input[name=page-slug]").val(),
         client_slug = $("input[name=client-slug]").val();
@@ -232,15 +272,17 @@ var buildDoc = function (test) {
                         }
                     ]
                 }*/
-            } 
+            }
         };
         var createRequest = gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
         createRequest.then(function (response) {
+            newSpreadsheetUrl = response.result.spreadsheetUrl;
+            $("#results").append("<h4>New Sheet Created for " + client_slug + "</h4>");
             newSpreadsheetId = response.result.spreadsheetId;
-            //firstSheetId = JSON.parse(response.result.sheet).properties.sheetId;
             var sheetVars = parseResultsOne(test);
             populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
             parseResultsTwo(test, newSpreadsheetId);
+            $("#results").append("<p>Populating data from <a href='" + sheetVars.show_url + "'>" + page_slug + " Test</a></p>");
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
@@ -304,20 +346,21 @@ var buildDoc = function (test) {
         };
         var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
         request.then(function (response) {
-            console.log(response.result);
+            $("#results").append("<p>Data successfully populated!</p><br>");
+            $(".loader").removeClass("animate-loader");
+            $(".loader").removeClass("show-loader");
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });
     };
 
     createSheet(client_slug + " QA Documentation", page_slug);
-}
+};
 
-// START DOCUMENTATION HANDLER
+// START DOCUMENTATION CLICK HANDLER
 var startDoc = function () {
     getResults();
 };
-
 
 // GOOGLE API HANDLER
 function initClient() {

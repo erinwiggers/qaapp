@@ -391,13 +391,13 @@ body {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ef6b55+0,dd6379+100 */
   background: #ef6b55;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #ef6b55 0%, #dd6379 100%) fixed;
+  background: -moz-linear-gradient(top, map-get($palette, beta) 0%, map-get($palette, delta) 100%) fixed;
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ef6b55 0%, #dd6379 100%) fixed;
+  background: -webkit-linear-gradient(top, map-get($palette, beta) 0%, map-get($palette, delta) 100%) fixed;
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ef6b55 0%, #dd6379 100%) fixed;
+  background: linear-gradient(to bottom, map-get($palette, beta) 0%, map-get($palette, delta) 100%) fixed;
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ef6b55', endColorstr='#dd6379',GradientType=0 ) fixed;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33a5e7', endColorstr='#9c407e',GradientType=0 ) fixed;
   /* IE6-9 */ }
 
 a {
