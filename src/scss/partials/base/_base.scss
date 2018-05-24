@@ -549,30 +549,30 @@ pre {
 }
 
 .text:nth-child(5n + 1) {
-  stroke: map-get($palette, alpha);
+  stroke: lighten(map-get($palette, alpha), 15%);
   -webkit-animation-delay: -2s;
   animation-delay: -2s;
 }
 .text:nth-child(5n + 2) {
-  stroke:map-get($palette, beta);
+  stroke: lighten(map-get($palette, beta), 15%);
   -webkit-animation-delay: -4s;
   animation-delay: -4s;
 }
 
 .text:nth-child(5n + 3) {
-  stroke: map-get($palette, delta);
+  stroke: lighten(map-get($palette, delta), 15%);
   -webkit-animation-delay: -6s;
   animation-delay: -6s;
 }
 
 .text:nth-child(5n + 4) {
-  stroke: map-get($palette, gamma);
+  stroke: lighten(map-get($palette, gamma), 15%);
   -webkit-animation-delay: -8s;
   animation-delay: -8s;
 }
 
 .text:nth-child(5n + 5) {
-  stroke: darken(map-get($palette, alpha), 15%);
+  stroke: lighten(map-get($palette, alpha), 15%);
   -webkit-animation-delay: -10s;
   animation-delay: -10s;
 }
