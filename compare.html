@@ -14,16 +14,18 @@
 
 <script>
     $(document).ready(function () {
-        var src = localStorage.getItem("image");
+        var imageSrc = localStorage.getItem("image");
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
             $("#pageFrame").attr("src", url);
         };
         var getImgSrc = function () {
-            $("#imageFrame").attr("src", src);
+            $("#imageFrame").attr("src", imgSrc);
         };
         getUrlSrc();
         getImgSrc();
+        console.log(url);
+        console.log(imgSrc);
         $('iframe').each(function () {
             this.contentWindow.location.reload(true);
         });
