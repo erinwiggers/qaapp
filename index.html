@@ -71,17 +71,23 @@
                 </div>
                 <div class="tab-content" data-tab="2">
                     <div class="padded-section padded-section--small padded-section--bottom">
-                        <h4>Open Testing Tunnel</h4>
+                        <h4>PSD Compare</h4>
                         <hr>
                     </div>
                     <div class="text-center">
-                        <form id="tunnel-form" class="simple-form">
-                            <div class="form-field">
-                                <input type="text" id="tunnelUrl" name="tunnelUrl" style="width:400px" value="enter URL">
+                        <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+                            <div id="image_preview">
+                                <img id="previewing" src="http://placehold.it/100x100.jpg" />
+                            </div>
+                            <div id="selectImage">
+                                <h4>Select Your Image</h4>
+                                <input type="file" name="file" id="file" required />
+                                <input type="submit" value="Upload" class="submit" />
                             </div>
                         </form>
-                        <button class="button" onclick="runTunnel()">Start Tunnel</button>
                     </div>
+                    <h4 id='loading'></h4>
+                    <div id="message"></div>
                 </div>
                 <div class="tab-content" data-tab="3">
                     <div class="padded-section padded-section--small padded-section--bottom">

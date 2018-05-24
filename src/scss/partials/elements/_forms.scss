@@ -14,3 +14,10 @@ input:focus {
   outline: #dd6379;
   color: #dd6379;
 }
+
+#uploadimage {
+    .submit {
+        @include button;
+        @include button-color(delta);
+    }
+}

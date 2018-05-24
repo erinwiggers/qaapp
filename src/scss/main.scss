@@ -26,6 +26,13 @@
 @import "modules/mixins";
 @import "modules/animations";
 
+@import "partials/elements/buttons";
+@import "partials/elements/forms";
+@import "partials/elements/lists";
+@import "partials/elements/tags--block";
+@import "partials/elements/tags--headings";
+@import "partials/elements/tags--inline";
+
 @import "partials/base/base";
 @import "partials/base/utility";
 
@@ -35,13 +42,6 @@
 @import "partials/blocks/logins";
 
 @import "vendor/magnific-popup";
-
-@import "partials/elements/buttons";
-@import "partials/elements/forms";
-@import "partials/elements/lists";
-@import "partials/elements/tags--block";
-@import "partials/elements/tags--headings";
-@import "partials/elements/tags--inline";
 
 @import "partials/sections/colored-sections";
 @import "partials/sections/bordered-sections";
