@@ -35,7 +35,7 @@ $(document).ready(function () {
         $(".side-panel").animate({ "width": "toggle" });
     });
     $('#uploadbox').singleupload({
-        action: 'do_upload.php',
+        action: 'qaapp/do_upload.php',
         inputId: 'singleupload_input',
         onError: function (code) {
             console.debug('error code ' + res.code);
