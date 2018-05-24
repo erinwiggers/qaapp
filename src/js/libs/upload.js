@@ -37,25 +37,26 @@
             fd.append($('#' + settings.inputId).attr('name'), $('#' + settings.inputId).get(0).files[0]);
 
             var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", function (ev) {
+                $this.html('');
+                var res = eval("(" + ev.target.responseText + ")");
+
+                if (res.code != 0) {
+                    settings.onError(res.code);
+                    return;
+                }
+                var review = ('<img src="' + res.url + '" style="width:' + $this.width() + 'px;height:' + $this.height() + 'px;"/>');
+                $this.append(review);
+                settings.onSuccess(res.url, res.data);
+
+            },
+                false);
+            xhr.upload.addEventListener("progress", function (ev) {
+                settings.OnProgress(ev.loaded, ev.total);
+            }, false);
+
             xhr.open("POST", settings.action, true);
             xhr.send(fd);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 1) {
-                    console.log("reqest initiated");
-                } else if (xhr.readyState == 2) {
-                    $(".side-panel").animate({ "width": "toggle" });
-                    $("#results").html("<h4>Uploading Image</h4>");
-                    $(".loader").addClass("show-loader");
-                    $(".loader").addClass("animate-loader");
-                } else if (xhr.readyState == 3) {
-                    $("#results").append("<p>Processing...</p>");
-                } else if (xhr.readyState == 4) {
-                    $("#results").append("<p>Success! Image Uploaded</p><br>");
-                    console.log(xhr.responseText);
-                } else {
-                    console.log("Something went wrong");
-                }
-            };
 
         });
 
