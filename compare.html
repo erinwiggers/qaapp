@@ -14,14 +14,13 @@
 
 <script>
     $(document).ready(function () {
-        var imageSrc = localStorage.getItem("image"); 
+        var imageSrc = localStorage.getItem("image_source"); 
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
-            $("#imageFrame").attr("src", url);
+            $("#pageFrame").attr("src", url);
         };
         var getImgSrc = function () {
-            $("#pageFrame").attr("src", imageSrc);
-            $("#pageFrame").reload();
+            $("#imageFrame").attr("src", imageSrc);
         }
         getUrlSrc();
         getImgSrc();
