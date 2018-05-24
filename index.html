@@ -75,18 +75,17 @@
                         <hr>
                     </div>
                     <div class="text-center">
-                        <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-                            <div id="image_preview">
-                                <img id="previewing" src="http://placehold.it/100x100.jpg" />
+                        <div id="paper">
+                            <div id="console">
+                                <div id="uploadbox" onClick="singleupload_input.click();" class="singleupload"></div>
+                                <input type="file" id="singleupload_input" style="display:none;" name="img" value="" />
                             </div>
-                            <div id="selectImage">
-                                <h4>Select Screenshot Test to Compare</h4>
-                                <input type="file" name="file" id="file" required />
-                                <input type="text" name="test_id" style="width:400px" value="2871068">
-                                <input type="text" id="compUrl" name="compUrl" style="width:400px" value="https://www.lyntonweb.com">
-                                <input type="submit" value="Compare" class="submit" />
-                            </div>
-                        </form>
+                        </div>
+                        
+                        <div id="imageinfo">
+                            <input id="return_url_text" type="text" value="" />
+                        </div>
+                        <button class="button button--beta" onclick="compare();">Compare</button>
                     </div>
                 </div>
                 <div class="tab-content" data-tab="3">
