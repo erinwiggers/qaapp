@@ -2,7 +2,7 @@ $(document).ready(function (e) {
     $("#uploadimage").on('submit', (function (e) {
         var url = $("input[name=compUrl]").val();
         e.preventDefault();
-        $(window).open("/compare.html?url=" + url);
+        window.open("/compare.html?url=" + url);
     }));
 
     // Function to preview image after validation
