@@ -1890,6 +1890,7 @@ $.fn.tabify = function (options) {
             fd.append($('#' + settings.inputId).attr('name'), $('#' + settings.inputId).get(0).files[0]);
 
             var xhr = new XMLHttpRequest();
+            xhr.open("POST", settings.action, true);
             xhr.send(fd);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 1) {
