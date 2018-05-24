@@ -1066,6 +1066,29 @@ pre { margin: 6% 0 0 0; display: block; word-break: normal; background-color: #3
 
 .top { top: 0; }
 
+.text { fill: none; stroke-width: 6; stroke-linejoin: round; stroke-dasharray: 70 330; stroke-dashoffset: 0; -webkit-animation: stroke 6s infinite linear; animation: stroke 6s infinite linear; }
+
+.text:nth-child(5n + 1) { stroke: #ef6b55; -webkit-animation-delay: -1.2s; animation-delay: -1.2s; }
+
+.text:nth-child(5n + 2) { stroke: #33a5e7; -webkit-animation-delay: -2.4s; animation-delay: -2.4s; }
+
+.text:nth-child(5n + 3) { stroke: #9c407e; -webkit-animation-delay: -3.6s; animation-delay: -3.6s; }
+
+.text:nth-child(5n + 4) { stroke: #dd6379; -webkit-animation-delay: -4.8s; animation-delay: -4.8s; }
+
+.text:nth-child(5n + 5) { stroke: #e23315; -webkit-animation-delay: -6s; animation-delay: -6s; }
+
+@-webkit-keyframes stroke { 100% { stroke-dashoffset: -400; } }
+
+@keyframes stroke { 100% { stroke-dashoffset: -400; } }
+
+/* Other styles */
+html, body { height: 100%; }
+
+title { background: transparent; background-size: .2em 100%; font: 14.5em/1 Open Sans, Impact; text-transform: uppercase; margin: 0; }
+
+svg { position: absolute; width: 100%; height: 100%; }
+
 /* Real/Equal Height on mobile */
 @media (max-width: 767px) { .natural-mobile { height: auto !important; } }
 
