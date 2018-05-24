@@ -1892,7 +1892,7 @@ $.fn.tabify = function (options) {
             var xhr = new XMLHttpRequest();
             xhr.addEventListener("load", function (ev) {
                 $this.html('');
-                var res = eval("(" + ev.target.responseText + ")");
+                var res = JSON.parse(ev.target.responseText);
 
                 if (res.code != 0) {
                     settings.onError(res.code);
