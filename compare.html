@@ -14,13 +14,16 @@
 
 <script>
     $(document).ready(function () {
-        var imageSrc = localStorage.getItem("image_source"); 
+        var reader = new FileReader();
+        var file = localStorage.getItem("file");
+        var src = reader.readAsDataURL(file);
+        console.log(src);
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
             $("#pageFrame").attr("src", url);
         };
         var getImgSrc = function () {
-            $("#imageFrame").attr("src", imageSrc);
+            $("#imageFrame").attr("src", src);
         }
         getUrlSrc();
         getImgSrc();

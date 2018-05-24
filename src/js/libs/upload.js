@@ -21,8 +21,8 @@ $(document).ready(function (e) {
                 var reader = new FileReader();
                 reader.onload = imageIsLoaded;
                 reader.readAsDataURL(this.files[0]);
-                var imgSrc = reader.readAsDataURL(this.files[0]);
-                localStorage.setItem("image_source", imgSrc);
+                var file = this.files[0];
+                localStorage.setItem("file", file);
             }
         });
     });
