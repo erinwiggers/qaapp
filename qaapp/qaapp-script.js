@@ -36,7 +36,7 @@ $(document).ready(function () {
     });
 });
 
-
+ 
 // WEBAPP Scripts
 
 // GLOBAL VARIABLES
@@ -174,57 +174,54 @@ var parseResultsOne = function (test) {
 // PARSE SCREENSHOT TEST RESULTS -- GET RESULTS VARIABLES
 var parseResultsTwo = function (test, spreadsheetId) {
     var allResults = function () {
+        var results = test.versions[0].results;
+        var total_results = results.length;
         $.each(test.versions[0].results, function (key, value) {
-            var index = 1;
-            var loop_index = index++;
-            var range = (10 + (1 * loop_index)) + ":100";
-            setTimeout(function () {
-                populateResults(spreadsheetId, range, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
-            }, 3000);
+            populateResults(spreadsheetId, value.result_id, value.os.name, value.browser.name, value.resolution.name, value.tags, value.show_result_web_url, value.launch_live_test_url);
+            if (key == (total_results - 1)) {
+                $("#results").append("<p>Populating data from " + $("input[name=page-slug]").val() + " Test...</p>");
+            }
         });
     };
-    //allResults();
+    allResults();
 };
 
 // PASS RESULTS TO GOOGLE SHEET
-var populateResults = function (spreadsheetId, range, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
+var populateResults = function (spreadsheetId, result_id, result_os, result_browser, result_resolution, result_tags, result_url, live_url) {
     var params = {
-        spreadsheetId: spreadsheetId
-    };
-    var batchUpdateValuesRequestBody = {
+        spreadsheetId: spreadsheetId,
         valueInputOption: 'USER_ENTERED',
         responseValueRenderOption: "FORMULA",
-        data: [
-            {
-                "majorDimension": "COLUMNS",
-                "range": range,
-                "values": [
-                    [
-                        "=HYPERLINK(\"" + result_url + "\", \"" + result_id + "\")"
-                    ],
-                    [
-                        "=T(\"" + result_os + "\")"
-                    ],
-                    [
-                        "=T(\"" + result_browser + "\")"
-                    ],
-                    [
-                        "=T(\"" + result_resolution + "\")"
-                    ],
-                    [
-                        "=T(\"" + result_tags + "\")"
-                    ],
-                    [
-                        "=HYPERLINK(\"" + live_url + "\", \"Start Live Test\" )"
-                    ]
-                ]
-            }
+        insertDataOption: "INSERT_ROWS",
+        range: "10:500"
+    };
+    var valueRangeBody = {
+        "majorDimension": "COLUMNS",
+        "range": "1:500",
+        "values": [
+            [
+                "=HYPERLINK(\"" + result_url + "\", \"" + result_id + "\")"
+            ],
+            [
+                "=T(\"" + result_os + "\")"
+            ],
+            [
+                "=T(\"" + result_browser + "\")"
+            ],
+            [
+                "=T(\"" + result_resolution + "\")"
+            ],
+            [
+                "=T(\"" + result_tags + "\")"
+            ],
+            [
+                "=HYPERLINK(\"" + live_url + "\", \"Start Live Test\" )"
+            ]
         ]
     };
-    var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
+    var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
     request.then(function (response) {
-        $("#results").append("<strong>Your documentation is ready!</strong>");
-        $("#results").append("<button href='" + newSpreadsheetUrl + "' class='button'>View Spreadsheet</button>");
+       console.log("results passed successfully")
     }, function (reason) {
         console.error('error: ' + reason.result.error.message);
     });
@@ -282,7 +279,8 @@ var buildDoc = function (test) {
             var sheetVars = parseResultsOne(test);
             populateNewSheet(newSpreadsheetId, page_slug, sheetVars.url, sheetVars.show_url, sheetVars.date, sheetVars.count, sheetVars.version_id);
             parseResultsTwo(test, newSpreadsheetId);
-            $("#results").append("<p>Populating data from <a href='" + sheetVars.show_url + "'>" + page_slug + " Test</a></p>");
+            $("#results").append("<strong>Your documentation is ready!</strong>");
+            $("#results").append("<br><a href='" + newSpreadsheetUrl + "' target='_blank' class='button'>View Spreadsheet</a>");
         }, function (reason) {
             console.error('error: ' + reason.result.error.message);
         });

@@ -71,28 +71,16 @@
                 </div>
                 <div class="tab-content" data-tab="2">
                     <div class="padded-section padded-section--small padded-section--bottom">
-                        <h4>Live Tests</h4>
+                        <h4>Open Testing Tunnel</h4>
                         <hr>
                     </div>
                     <div class="text-center">
-                        <form id="live-form" class="simple-form">
+                        <form id="tunnel-form" class="simple-form">
                             <div class="form-field">
-                                <input type="text" id="url" name="url" style="width:400px" value="enter URL">
-                            </div>
-                            <div class="form-field">
-                                <input type="text" id="os" name="os" style="width:400px" value="desired OS">
-                            </div>
-                            <div class="form-field">
-                                <input type="text" id="browser" name="browser" style="width:400px" value="desired browser">
-                            </div>
-                            <div class="form-field">
-                                <input type="text" id="device" name="device" style="width:400px" value="desired device">
-                            </div>
-                            <div class="form-field">
-                                <input type="text" id="resolution" name="resolution" style="width:400px" value="desired resolution">
+                                <input type="text" id="tunnelUrl" name="tunnelUrl" style="width:400px" value="enter URL">
                             </div>
                         </form>
-                        <button class="button" onclick="runLiveTest()">Run Screenshot Test</button>
+                        <button class="button" onclick="runTunnel()">Start Tunnel</button>
                     </div>
                 </div>
                 <div class="tab-content" data-tab="3">
