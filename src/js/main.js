@@ -34,18 +34,20 @@ $(document).ready(function () {
     $(".close").on("click", function () {
         $(".side-panel").animate({ "width": "toggle" });
     });
-    $(function () {
-        $('#uploadbox').singleupload({
-            action: 'do_upload.json', //action: 'do_upload.php'
-            inputId: 'singleupload_input',
-            onError: function (code) {
-                console.debug('error code ' + res.code);
-            },
-            onSuccess: function (url, data) {
-                $('#return_url_text').val(url);
-            }
-            /*,onProgress: function(loaded, total) {} */
-        });
+    $('#uploadbox').singleupload({
+        action: 'do_upload.json', //action: 'do_upload.php'
+        inputId: 'singleupload_input',
+        onError: function (code) {
+            console.debug('error code ' + res.code);
+        },
+        onSuccess: function (url, data) {
+            $('#return_url_text').val(url);
+            $(".loader").removeClass("show-loader");
+        },
+        onProgress: function(loaded, total) {
+            $(".loader").addClass("show-loader");
+            $(".loader").addClass("animate-loader");
+        }
     });
 });
 
