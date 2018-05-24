@@ -1,6 +1,7 @@
 $(document).ready(function (e) {
     $("#uploadimage").on('submit', (function (e) {
         var url = $("input[name=compUrl]").val();
+        var test = $("input[name=test_id]").val();
         e.preventDefault();
         window.open("/qaapp/compare.html?url=" + url);
     }));

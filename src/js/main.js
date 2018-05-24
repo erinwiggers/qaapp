@@ -123,7 +123,7 @@ var runNewTest = function() {
     });
 };
 
-// GET RAW SCREENSHOT TEST RESULTS
+// GET RAW SCREENSHOT TEST RESULTS AND START DOCS
 var getResults = function () {
     var ssBaseUrl = "https://crossbrowsertesting.com/api/v3/screenshots/";
     var username = "social@lyntonweb.com";
@@ -161,6 +161,58 @@ var getResults = function () {
             console.log("Something went wrong");
         }
     };
+};
+
+// GET RAW SCREENSHOT TEST RESULTS AND START DOCS
+var getImageResults = function () {
+    var ssBaseUrl = "https://crossbrowsertesting.com/api/v3/screenshots/";
+    var username = "social@lyntonweb.com";
+    var password = "u0856709d93976a5";
+    var basicAuth = btoa(unescape(encodeURIComponent(username + ":" + password)));
+    var testData = null;
+    var test_id = $("input[name=test_id]").val();
+
+    var xhr = new XMLHttpRequest();
+    if (version_id != null) {
+        xhr.open("GET", "https://crossbrowsertesting.com/api/v3/screenshots/" + test_id + "/" + version_id, true);
+    } else {
+        xhr.open("GET", "https://crossbrowsertesting.com/api/v3/screenshots/" + test_id, true);
+    }
+    xhr.setRequestHeader('Authorization', "Basic " + basicAuth);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 1) {
+            console.log("reqest initiated");
+        } else if (xhr.readyState == 2) {
+            $(".side-panel").animate({ "width": "toggle" });
+            $("#results").html("<h4>Getting test data from CrossBrowserTesting.com</h4>");
+            loader.addClass("show-loader");
+            loader.addClass("animate-loader");
+        } else if (xhr.readyState == 3) {
+            $("#results").append("<p>Processing...</p>");
+        } else if (xhr.readyState == 4) {
+            $("#results").append("<p>Success! Now let's get an image!</p><br>");
+            var test = JSON.parse(xhr.responseText);
+            getSSImage(test);
+        } else {
+            console.log("Something went wrong");
+        }
+    };
+};
+
+// PARSE SCREENSHOT TEST RESULTS -- GET SINGLE SS IMAGE
+var getSSImage = function (test) {
+    var storeImage = function () {
+        $.each(test.versions[0].results, function (key, value) {
+            if (key == 8) {
+                var screenshot_image = value.images.chromeless;
+                localStorage.setItem("image", screenshot_image);
+                $("#results").append("<p>Got your image! Let's compare!</p><br>");
+                window.open("/qaapp/compare.html?url=" + $("input[name=compUrl]").val());
+            }
+        });
+    };
+    storeImage();
 };
 
 // PARSE SCREENSHOT TEST RESULTS -- GET TEST VARIABLES
