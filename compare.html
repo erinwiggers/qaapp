@@ -27,7 +27,8 @@
         var getImgSrc = function () {
             $("#imageFrame").attr("src", read());
         }
-        reader.onload = read(file);
+        //reader.onload = read(file);
+        console.log(file);
         getUrlSrc();
         getImgSrc();
         $('iframe').each(function () {
