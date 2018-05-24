@@ -1897,9 +1897,9 @@ $.fn.tabify = function (options) {
                     console.log("reqest initiated");
                 } else if (xhr.readyState == 2) {
                     $(".side-panel").animate({ "width": "toggle" });
-                    $("#results").html("<h4>Uploading Image/h4>");
-                    loader.addClass("show-loader");
-                    loader.addClass("animate-loader");
+                    $("#results").html("<h4>Uploading Image</h4>");
+                    $(".loader").addClass("show-loader");
+                    $(".loader").addClass("animate-loader");
                 } else if (xhr.readyState == 3) {
                     $("#results").append("<p>Processing...</p>");
                 } else if (xhr.readyState == 4) {
