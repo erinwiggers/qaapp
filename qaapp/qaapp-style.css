@@ -1417,9 +1417,9 @@ body { position: relative; z-index: 1; }
 
 .compare__wrapper { width: 48%; margin: .5%; height: 1000px; float: left; overflow: scroll; }
 
-.compare iframe { width: 100%; height: 100%; }
+.compare iframe { width: 100%; height: 100%; z-index: 1; }
 
-.compare .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
+.compare .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; z-index: 9999; }
 
 /* Magnific Popup CSS */
 .mfp-bg { top: 0; left: 0; width: 100%; height: 100%; z-index: 200; overflow: hidden; position: fixed; background: #0b0b0b; opacity: 0.8; filter: alpha(opacity=80); }
