@@ -1413,6 +1413,8 @@ body { position: relative; z-index: 1; }
 
 .ninja { color: white; border: 3px solid white; border-radius: 1000px; font-size: 1.5em; padding: .5em .6em; cursor: pointer; }
 
+.compare iframe { width: 49%; margin: .5%; height: 100vw; }
+
 /* Magnific Popup CSS */
 .mfp-bg { top: 0; left: 0; width: 100%; height: 100%; z-index: 200; overflow: hidden; position: fixed; background: #0b0b0b; opacity: 0.8; filter: alpha(opacity=80); }
 
