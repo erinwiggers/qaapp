@@ -17,18 +17,20 @@
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
             $("#pageFrame").attr("src", url);
+            $('iframe').each(function () {
+                this.contentWindow.location.reload(true);
+            });
         };
         var getImgSrc = function () {
             var driveId = localStorage.getItem("image_source");
             var imgSrc = "https://docs.google.com/viewer?srcid=" + driveId + "&pid=explorer&efh=false&a=v&chrome=false&embedded=true";
             $("#imageFrame").attr("src", imgSrc);
+            $('iframe').each(function () {
+                this.contentWindow.location.reload(true);
+            });
         };
         getUrlSrc();
         getImgSrc();
-        
-        $('iframe').each(function () {
-            this.contentWindow.location.reload(true);
-        });
     });
 </script>
 
