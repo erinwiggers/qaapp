@@ -34,9 +34,6 @@ $(document).ready(function () {
     $(".close").on("click", function () {
         $(".side-panel").animate({ "width": "toggle" });
     });
-    $('iframe').each(function () {
-        this.contentWindow.location.reload(true);
-    });
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
