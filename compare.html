@@ -16,7 +16,11 @@
     $(document).ready(function () {
         var reader = new FileReader();
         var file = localStorage.getItem("file");
-        var src = reader.readAsDataURL(file);
+        var result = null;
+        reader.addEventListener("loadend", function () {
+            result = reader.result;
+        });
+        var src = reader.readAsDataURL(result);
         console.log(src);
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
