@@ -17,17 +17,11 @@
         var getUrlSrc = function () {
             var url = getUrlParameter("url");
             $("#pageFrame").attr("src", url);
-            $('iframe').each(function () {
-                this.contentWindow.location.reload(true);
-            });
         };
         var getImgSrc = function () {
             var driveId = localStorage.getItem("image_source");
             var imgSrc = "https://docs.google.com/viewer?srcid=" + driveId + "&pid=explorer&efh=false&a=v&chrome=false&embedded=true";
             $("#imageFrame").attr("src", imgSrc);
-            $('iframe').each(function () {
-                this.contentWindow.location.reload(true);
-            });
         };
         getUrlSrc();
         getImgSrc();
@@ -38,11 +32,11 @@
     <div class="compare">
         <div class="compare__wrapper">
             <div class="overlay" onClick="style.pointerEvents='none'"></div>
-            <iframe id="imageFrame" src=""></iframe>
+            <iframe id="imageFrame" src="none" width="100%" height="100%"></iframe>
         </div>
         <div class="compare__wrapper">
             <div class="overlay" onClick="style.pointerEvents='none'"></div>
-            <iframe id="pageFrame" src=""></iframe>
+            <iframe id="pageFrame" src="none" width="100%" height="100%"></iframe>
         </div>
     </div>
     
