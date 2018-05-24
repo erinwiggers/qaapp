@@ -19,7 +19,7 @@
             $("#pageFrame").attr("src", url);
         };
         var getImgSrc = function () {
-            var driveId = localStorage.getItem("drive_id");
+            var driveId = localStorage.getItem("image_source");
             var imgSrc = "https://docs.google.com/viewer?srcid=" + driveId + "&pid=explorer&efh=false&a=v&chrome=false&embedded=true";
             $("#imageFrame").attr("src", imgSrc);
         };
