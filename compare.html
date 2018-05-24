@@ -17,8 +17,8 @@
         var reader = new FileReader(),
             file = localStorage.getItem("file"),
             src = null;
+        reader.onload = read(file);
         var read = function(data) {
-            reader.onload = processFile(data);
             reader.readAsDataURL(data);
         };
         var getUrlSrc = function () {
