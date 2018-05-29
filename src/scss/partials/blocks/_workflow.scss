@@ -3,7 +3,7 @@
     position: relative;
     z-index: 1;
     &__wrapper {
-        height: 100%;
+        @include stick;
     }
     .overlay {
         @include stick;

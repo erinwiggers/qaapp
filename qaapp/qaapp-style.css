@@ -1488,7 +1488,7 @@ body { position: relative; z-index: 1; }
 
 .workflow { height: 100vw; position: relative; z-index: 1; }
 
-.workflow__wrapper { height: 100%; }
+.workflow__wrapper { position: absolute; left: 0; right: 0; bottom: 0; top: 0; }
 
 .workflow .overlay { position: absolute; left: 0; right: 0; bottom: 0; top: 0; z-index: 9999; }
 
