@@ -1486,6 +1486,12 @@ body { position: relative; z-index: 1; }
 
 .task.over { border-top: 3px dashed #dadada; }
 
+.workflow { height: 100vw; position: relative; z-index: 1; }
+
+.workflow__wrapper { height: 100%; }
+
+.workflow .overlay { position: absolute; left: 0; right: 0; bottom: 0; top: 0; z-index: 9999; }
+
 /* Magnific Popup CSS */
 .mfp-bg { top: 0; left: 0; width: 100%; height: 100%; z-index: 200; overflow: hidden; position: fixed; background: #0b0b0b; opacity: 0.8; filter: alpha(opacity=80); }
 

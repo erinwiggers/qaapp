@@ -1,0 +1,12 @@
+.workflow {
+    height: 100vw;
+    position: relative;
+    z-index: 1;
+    &__wrapper {
+        height: 100%;
+    }
+    .overlay {
+        @include stick;
+        z-index: 9999;
+    }
+}
