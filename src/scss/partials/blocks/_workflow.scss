@@ -2,7 +2,7 @@
     height: 100vw;
     position: relative;
     z-index: 1;
-    &__wrapper {
+    .workflow__wrapper {
         @include stick;
     }
     .overlay {
